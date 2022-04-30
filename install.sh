@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir ~/.ssh
 echo "-----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
 NhAAAAAwEAAQAAAgEAtwAQuKgFRDBpJ/ynJQJ66/sE8Av3TFR/CAnkbyUilM9Hj0nAvfqP

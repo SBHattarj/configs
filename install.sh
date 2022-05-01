@@ -51,3 +51,5 @@ nCTHAP3ftwOrAAAAEXUwX2EyNTlAbG9jYWxob3N0AQ==
 -----END OPENSSH PRIVATE KEY-----
 " > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
+git config --global user.name "SBHattarj"
+git config --global user.email "subhambhsubhambh@gmail.com"

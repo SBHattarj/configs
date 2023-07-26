@@ -53,3 +53,16 @@ nCTHAP3ftwOrAAAAEXUwX2EyNTlAbG9jYWxob3N0AQ==
 chmod 600 ~/.ssh/id_rsa
 git config --global user.name "SBHattarj"
 git config --global user.email "subhambhsubhambh@gmail.com"
+echo "copying bashrc"
+cp ./.bashrc ~/.bashrc
+echo "copying tmux.conf"
+cp ./.tmux.conf ~/.tmux.conf
+echo "copying contour config"
+cp -r ./contour ~/.config/contour
+echo "copying zshrc"
+cp ./.zshrc ~/.zshrc
+echo "copying nvim config"
+cp -r ./nvimrc ~/.config/nvim
+
+echo "copying oh-my-zsh"
+cp -r ./.oh-my-zsh ~/.oh-my-zsh

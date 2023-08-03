@@ -1,68 +1,20 @@
 #!/bin/bash
-mkdir ~/.ssh
-echo "-----BEGIN OPENSSH PRIVATE KEY-----
-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
------END OPENSSH PRIVATE KEY-----
-" > ~/.ssh/id_rsa
-chmod 600 ~/.ssh/id_rsa
-git config --global user.name "SBHattarj"
-git config --global user.email "subhambhsubhambh@gmail.com"
+config=~/.config
 echo "copying bashrc"
 cp ./.bashrc ~/.bashrc
 echo "copying tmux.conf"
 cp ./.tmux.conf ~/.tmux.conf
 echo "copying contour config"
-cp -r ./contour ~/.config/contour
+cp -r ./contour $config/contour
 echo "copying zshrc"
 cp ./.zshrc ~/.zshrc
 echo "copying nvim config"
-cp -r ./nvimrc ~/.config/nvim
+cp -r ./nvimrc $config/nvim
 
 echo "copying oh-my-zsh"
 cp -r ./.oh-my-zsh ~/.oh-my-zsh
+echo "copying sway config"
+cp -r ./sway $config/sway
+echo "copying waybar config"
+cp -r ./waybar $config/waybar
+

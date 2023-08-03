@@ -1,0 +1,4 @@
+Host github-sesascript
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/sesascript_id

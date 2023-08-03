@@ -17,4 +17,5 @@ echo "copying sway config"
 cp -r ./sway $config/sway
 echo "copying waybar config"
 cp -r ./waybar $config/waybar
-
+echo "copying ssh config"
+cp ./ssh-config ~/.ssh/config

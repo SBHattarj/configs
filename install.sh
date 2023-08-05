@@ -19,3 +19,10 @@ echo "copying waybar config"
 cp -r ./waybar $config/waybar
 echo "copying ssh config"
 cp ./ssh-config ~/.ssh/config
+echo "copying greetd config"
+sudo rm -rf /etc/greetd
+sudo cp -r /greetd /etc/greetd
+sudo chown greeter /etc/greetd
+sudo chown greeter /etc/greetd/*
+sudo chown greeter /etc/greetd/wallpaper/*
+

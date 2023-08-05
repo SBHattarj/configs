@@ -25,4 +25,8 @@ sudo cp -r /greetd /etc/greetd
 sudo chown greeter /etc/greetd
 sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/wallpaper/*
-
+echo "copying local binaries"
+mkdir ~/.local
+mkdir ~/.local/bin
+cp -r ./bin/* ~/.local/bin/
+chmod u+x ~/.local/bin/*

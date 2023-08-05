@@ -1,0 +1,12 @@
+#!/bin/env python
+import os
+
+def get_cmds(npm_json: dict):
+    return npm_json["script"].keys()
+
+def main():
+    current_directory = os.getcwd()
+    with open(f"{current_directory}/package.json") as npm_json:
+        cmds = get_cmds(npm_json)
+        for cmd in cmds:
+            print(cmd)

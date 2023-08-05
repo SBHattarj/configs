@@ -1,0 +1,5 @@
+#!/bin/bash
+
+killall wayvnc
+
+wayvnc --output=HEADLESS-$1 --max-fps=20 0.0.0.0 5900 &

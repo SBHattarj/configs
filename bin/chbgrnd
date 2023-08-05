@@ -1,0 +1,11 @@
+#!/bin/bash
+
+killall swaybg
+if [ -n $XDG_RUNTIME_DIR ]; then
+    export XDG_RUNTIME_DIR="$(find /run/user/* -maxdepth 1 -print -quit)"
+fi
+if [ -n $WAYLAND_DISPLAY ]; then
+    export WAYLAND_DISPLAY="$(ls $XDG_RUNTIME_DIR | grep "wayland-[0-9]$")"
+fi
+wallpaper_dir=/home/mav/wallpaper
+swaybg -i $(find $wallpaper_dir -maxdepth 1 -type f | shuf -n 1) -m fill &

@@ -1,0 +1,2 @@
+sway create_output HEADLESS-1
+sway create_output HEADLESS-2

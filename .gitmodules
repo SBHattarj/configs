@@ -1,3 +1,6 @@
 [submodule "nvimrc"]
 	path = nvimrc
 	url = git@github.com:SBHattarj/nvimrc
+[submodule "greetd/wallpaper"]
+	path = greetd/wallpaper
+	url = git@github.com:SBHattarj/wallpaper

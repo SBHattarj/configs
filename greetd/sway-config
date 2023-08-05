@@ -1,0 +1,9 @@
+exec 'gtkgreet -l -s /etc/greetd/gtkgreet.css -b "$(find /etc/greetd/wallpaper -maxdepth 1 -type f | shuf -n 1)"; swaymsg exit'
+
+bindsym Mod4+shift+e exec swaynag \
+-t warning \
+-m 'What do you want to do?' \
+-b 'Poweroff' 'systemctl poweroff' \
+-b 'Reboot' 'systemctl reboot'
+
+include /etc/sway/config.d/*

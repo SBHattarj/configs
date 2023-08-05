@@ -15,12 +15,14 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term contour
-set $browser flatpak run com.brave.Browser
-set $obs flatpak run com.obsproject.Studio
-set $scrcpy flatpak run in.srev.guiscrcpy
+set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
+set $obs obs
+set $scrcpy guiscrcpy
 set $chbgrnd /home/mav/.local/bin/chbgrnd
 set $virtoutinit /home/mav/.local/bin/virtoutinit
 set $vncout /home/mav/.local/bin/vncout
+set $wallpaper_dir /home/mav/wallpaper
+set $audio-controls pavucontrol
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -28,7 +30,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output HEADLESS-1 {
     mode 2048x1100
 }
@@ -37,6 +38,10 @@ output HEADLESS-2 {
     mode 1920x940
     transform 90
 }
+default_border pixel 4
+default_floating_border pixel 4
+output * bg `find $wallpaper_dir -maxdepth 1 -type f | shuf -n 1` fill
+
 #
 # Example configuration:
 #
@@ -84,6 +89,7 @@ output HEADLESS-2 {
     bindsym $mod+v exec $virtoutinit
     bindsym $mod+o exec $vncout 1
     bindsym $mod+i exec $vncout 2
+    bindsym $mod+Shift+a exec $audio-controls
 
     # Kill focused window
     bindsym $mod+Shift+q kill

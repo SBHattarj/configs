@@ -1,0 +1,14 @@
+main_css=""
+wallpaper="$(find /etc/greetd/wallpaper -maxdepth 1 -type f | shuf -n 1)"
+
+new_css="window {
+	background-image: url('file://$wallpaper');
+	background-size: cover;
+	background-position: center;
+}
+box#body {
+	background-color: transparent;
+}
+"
+echo "$new_css" > /etc/greetd/gtkgreet.css
+echo "$main_css" >> /etc/greetd/gtkgreet.css

@@ -92,9 +92,9 @@ exec swaync
     bindsym $mod+i exec $vncout 2
     bindsym $mod+Shift+a exec $audio-controls
     bindsym $mod+Shift+n exec swaync-client -t -sw
-    bindsym $mod+Plus exec sway-screenshot -m output
-    bindsym $mod+Equal exec sway-screenshot -m region
-    bindsym $mod+Comma exec sway-screenshot -m window
+    bindsym $mod+Plus exec shotman --capture output
+    bindsym $mod+Equal Sway_Screenshot_Dir=/home/mav/screenshots/ exec sway-screenshot -m region
+    bindsym $mod+Comma Sway_Screenshot_Dir=/home/mav/screenshots/ exec sway-screenshot -m window
 
     # Kill focused window
     bindsym $mod+Shift+q kill

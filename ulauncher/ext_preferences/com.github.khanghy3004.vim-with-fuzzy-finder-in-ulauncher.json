@@ -1,0 +1,16 @@
+{
+    "preferences": {
+        "alt_enter_action": "0",
+        "search_type": "0",
+        "allow_hidden": "1",
+        "follow_symlinks": "1",
+        "result_limit": "15",
+        "base_dir": "~",
+        "ignore_file": ""
+    },
+    "triggers": {
+        "kw": {
+            "keyword": "nvim"
+        }
+    }
+}

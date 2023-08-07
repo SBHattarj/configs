@@ -1,6 +1,6 @@
 exec '/etc/greetd/create_css; GTK_THEME=Adwaita:dark gtkgreet -l -s /etc/greetd/gtkgreet.css; swaymsg exit'
 
-bindsym Mod4+shift+e exec swaynag \
+bindsym Mod1+shift+e exec swaynag \
 -t warning \
 -m 'What do you want to do?' \
 -b 'Poweroff' 'systemctl poweroff' \

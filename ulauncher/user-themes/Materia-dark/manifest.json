@@ -1,0 +1,13 @@
+{
+    "manifest_version": "1",
+    "name": "Materia Dark",
+    "display_name": "Materia Dark",
+    "extend_name": null,
+    "css_file": "gtk-3.0/gtk.css",
+    "css_file_gtk_3.20+": "gtk-3.0/gtk.css",
+    "extend_theme": "Adwaita",
+    "matched_text_hl_colors": {
+        "when_selected": "#99ccff",
+        "when_not_selected": "#99ccff"
+    }
+}

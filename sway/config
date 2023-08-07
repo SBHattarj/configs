@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term contour
+set $term GKT_THEME=Materia-dark contour
 set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
 set $obs obs
 set $scrcpy guiscrcpy
@@ -26,7 +26,7 @@ set $audio-controls pavucontrol
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu GTK_THEME=Materia-dark /home/mav/.local/bin/ulauncher
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -41,6 +41,7 @@ output HEADLESS-2 {
 default_border pixel 4
 default_floating_border pixel 4
 output * bg `find $wallpaper_dir -maxdepth 1 -type f | shuf -n 1` fill
+exec swaync
 
 #
 # Example configuration:
@@ -90,6 +91,10 @@ output * bg `find $wallpaper_dir -maxdepth 1 -type f | shuf -n 1` fill
     bindsym $mod+o exec $vncout 1
     bindsym $mod+i exec $vncout 2
     bindsym $mod+Shift+a exec $audio-controls
+    bindsym $mod+Shift+n exec swaync-client -t -sw
+    bindsym $mod+Plus exec sway-screenshot -m output
+    bindsym $mod+Equal exec sway-screenshot -m region
+    bindsym $mod+Comma exec sway-screenshot -m window
 
     # Kill focused window
     bindsym $mod+Shift+q kill

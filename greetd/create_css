@@ -5,9 +5,8 @@ new_css="window {
 	background-image: url('file://$wallpaper');
 	background-size: cover;
 	background-position: center;
-}
-box#body {
-	background-color: transparent;
+    background-blend-mode: multiply;
+    background-color: rgb(150, 150, 150);
 }
 "
 echo "$new_css" > /etc/greetd/gtkgreet.css

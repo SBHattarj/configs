@@ -1,10 +1,9 @@
 window {
-	background-image: url('file:///etc/greetd/wallpaper/wallpaper13.jpg');
+	background-image: url('file:///etc/greetd/wallpaper/wallpaper11.png');
 	background-size: cover;
 	background-position: center;
-}
-box#body {
-	background-color: transparent;
+	background-blend-mode: multiply;
+	background-color: rgb(150, 150, 150);
 }
 
 

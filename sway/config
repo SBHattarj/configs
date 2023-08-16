@@ -23,6 +23,7 @@ set $virtoutinit /home/mav/.local/bin/virtoutinit
 set $vncout /home/mav/.local/bin/vncout
 set $wallpaper_dir /home/mav/wallpaper
 set $audio-controls pavucontrol
+set $keyboard-sound killall buckle; /home/mav/.local/bin/buckle
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -95,6 +96,7 @@ exec swaync
     bindsym $mod+Plus exec shotman --capture output
     bindsym $mod+Equal Sway_Screenshot_Dir=/home/mav/screenshots/ exec sway-screenshot -m region
     bindsym $mod+Comma Sway_Screenshot_Dir=/home/mav/screenshots/ exec sway-screenshot -m window
+    bindsym $mod+Shift+t exec "killall buckle; /home/mav/.local/bin/buckle"
 
     # Kill focused window
     bindsym $mod+Shift+q kill

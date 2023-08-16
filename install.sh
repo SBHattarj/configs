@@ -40,3 +40,5 @@ sudo cp -r /greetd /etc/greetd
 sudo chown greeter /etc/greetd
 sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/wallpaper/*
+sudo cp ./sway-run /usr/bin/sway-run
+sudo chmod a+x /usr/bin/sway-run

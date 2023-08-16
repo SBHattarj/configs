@@ -1,11 +1,11 @@
-00:00:00.015 [ERROR] [sway/main.c:62] !!! Proprietary Nvidia drivers are in use !!!
-00:00:00.019 [ERROR] [wlr] [libseat] [libseat/backend/seatd.c:66] Could not connect to socket /run/seatd.sock: Permission denied
-00:00:04.376 [ERROR] [wlr] [xwayland/server.c:442] Cannot find Xwayland binary "/usr/bin/Xwayland"
-00:00:04.376 [ERROR] [sway/server.c:282] Failed to start Xwayland
+00:00:00.016 [ERROR] [sway/main.c:62] !!! Proprietary Nvidia drivers are in use !!!
+00:00:00.020 [ERROR] [wlr] [libseat] [libseat/backend/seatd.c:66] Could not connect to socket /run/seatd.sock: Permission denied
+00:00:04.999 [ERROR] [wlr] [xwayland/server.c:442] Cannot find Xwayland binary "/usr/bin/Xwayland"
+00:00:04.999 [ERROR] [sway/server.c:282] Failed to start Xwayland
 Environment variable $DISPLAY not set, ignoring.
 Environment variable $XDG_CURRENT_DESKTOP not set, ignoring.
 
-** (gtkgreet:599): CRITICAL **: 16:45:13.021: custom_shell_surface_init: assertion '!gtk_widget_get_mapped (GTK_WIDGET (gtk_window))' failed
+** (gtkgreet:615): CRITICAL **: 11:53:57.813: custom_shell_surface_init: assertion '!gtk_widget_get_mapped (GTK_WIDGET (gtk_window))' failed
 
-** (gtkgreet:599): CRITICAL **: 16:45:18.041: custom_shell_surface_init: assertion '!gtk_widget_get_mapped (GTK_WIDGET (gtk_window))' failed
-00:00:00.163 [ERROR] [common/ipc-client.c:87] Unable to receive IPC response
+** (gtkgreet:615): CRITICAL **: 11:54:01.848: custom_shell_surface_init: assertion '!gtk_widget_get_mapped (GTK_WIDGET (gtk_window))' failed
+00:00:00.179 [ERROR] [common/ipc-client.c:87] Unable to receive IPC response

@@ -1,44 +1,55 @@
 #!/bin/bash
-config=~/.config
-echo "copying bashrc"
-cp ./.bashrc ~/.bashrc
-echo "copying tmux.conf"
-cp ./.tmux.conf ~/.tmux.conf
-echo "copying contour config"
-cp -r ./contour $config/contour
-echo "copying zshrc"
-cp ./.zshrc ~/.zshrc
-echo "copying nvim config"
-cp -r ./nvimrc $config/nvim
 
-echo "copying oh-my-zsh"
+SOURCE=${BASH_SOURCE[0]}
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+config=~/.config
+echo "linking bashrc"
+ln -rsi $DIR/.bashrc ~/.bashrc
+echo "linking tmux.conf"
+ln -rsi $DIR/.tmux.conf ~/.tmux.conf
+echo "linking contour config"
+ln -rsi $DIR/contour $config/contour
+echo "linking zshrc"
+ln -rsi $DIR/.zshrc ~/.zshrc
+echo "linking nvim config"
+ln -rsi $DIR/nvimrc $config/nvim
+
+echo "linking oh-my-zsh"
 rm -rf ~/.oh-my-zsh
-cp -r ./.oh-my-zsh ~/.oh-my-zsh
-echo "copying sway config"
+ln -rsi $DIR/.oh-my-zsh ~/.oh-my-zsh
+echo "linking sway config"
 rm -rf ~/.config/sway
-cp -r ./sway $config/sway
-echo "copying swaync config"
+ln -rsi $DIR/sway $config/sway
+echo "linking swaync config"
 rm -rf ~/.config/swaync
-cp -r ./swaync $config/swaync
-echo "copying waybar config"
+ln -rsi $DIR/swaync $config/swaync
+echo "linking waybar config"
 rm -rf ~/.config/waybar
-cp -r ./waybar $config/waybar
-echo "copying ssh config"
-cp ./ssh-config ~/.ssh/config
-echo "copying ulauncher configs"
+ln -rsi $DIR/waybar $config/waybar
+echo "linking ssh config"
+ln -rsi $DIR/ssh-config ~/.ssh/config
+echo "linking ulauncher configs"
 rm -rf ~/.config/ulauncher
-cp -r ./ulauncher $config/ulauncher
-echo "copying local binaries"
+ln -rsi $DIR/ulauncher $config/ulauncher
+echo "linking local binaries"
 mkdir ~/.local
 mkdir ~/.local/bin
-cp -r ./bin/* ~/.local/bin/
-chmod u+x ~/.local/bin/*
+ln -rsi $DIR/bin ~/.local/bin
+chmod u+x $DIR/bin/*
 
 echo "copying greetd config"
 sudo rm -rf /etc/greetd
-sudo cp -r /greetd /etc/greetd
-sudo chown greeter /etc/greetd
+sudo cp -r $DIR/greetd /etc/greetd
+sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/wallpaper/*
-sudo cp ./sway-run /usr/bin/sway-run
+sudo cp $DIR/sway-run /usr/bin/sway-run
+
+echo "copying sway-run"
 sudo chmod a+x /usr/bin/sway-run

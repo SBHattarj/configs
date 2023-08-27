@@ -94,8 +94,8 @@ exec swaync
     bindsym $mod+Shift+a exec $audio-controls
     bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+Plus exec shotman --capture output
-    bindsym $mod+Equal exec Sway_Screenshot_Dir=/home/mav/screenshots/ sway-screenshot -m region
-    bindsym $mod+Comma exec Sway_Screenshot_Dir=/home/mav/screenshots/ sway-screenshot -m window
+    bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m region
+    bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec "killall buckle; /home/mav/.local/bin/buckle"
 
     # Kill focused window

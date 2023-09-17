@@ -100,4 +100,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH=$HOME/.local/bin:$PATH
+export PATH=./venv/bin:$PATH
 export GTK_THEME=Mint-Y-Dark-Red

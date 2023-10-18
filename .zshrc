@@ -105,3 +105,7 @@ export WLR_WL_OUTPUTS=3
 export PATH=$HOME/.local/bin:$PATH
 export PATH=./venv/bin:$PATH
 export GTK_THEME=Mint-Y-Dark-Red
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

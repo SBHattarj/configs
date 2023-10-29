@@ -39,7 +39,7 @@ rm -rf ~/.config/ulauncher
 ln -rsi $DIR/ulauncher $config/ulauncher
 echo "linking local binaries"
 mkdir ~/.local
-mkdir ~/.local/bin
+rm -rf ~/.local/bin
 ln -rsi $DIR/bin ~/.local/bin
 chmod u+x $DIR/bin/*
 

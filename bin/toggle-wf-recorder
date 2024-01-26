@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+pid=`pgrep wf-recorder`
+status_=$?
+
+if [ $status_ != 0 ]
+then
+    wf-recorder -f $HOME/recordings/$(date +'recording_%Y-%m-%d-%H%M%S.mp4');
+else
+    pkill --signal SIGINT wf-recorder
+fi;

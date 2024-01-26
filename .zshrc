@@ -1,3 +1,4 @@
+eval "$(termium shell-hook show pre)"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -109,3 +110,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(termium shell-hook show post)"
+export ANDROID_HOME="$HOME/.android-root"
+export PATH="$HOME/.android-root/cmdline-tools/latest/bin:$PATH"

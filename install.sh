@@ -14,10 +14,13 @@ ln -rsi $DIR/.bashrc ~/.bashrc
 echo "linking tmux.conf"
 ln -rsi $DIR/.tmux.conf ~/.tmux.conf
 echo "linking contour config"
+rm -rf $config/contour
 ln -rsi $DIR/contour $config/contour
 echo "linking zshrc"
+rm -rf ~/.zshrc
 ln -rsi $DIR/.zshrc ~/.zshrc
 echo "linking nvim config"
+rm -rf $config/nvim
 ln -rsi $DIR/nvimrc $config/nvim
 
 echo "linking oh-my-zsh"

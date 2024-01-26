@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term GKT_THEME=Materia-dark contour
+set $term GKT_THEME=Materia-dark contour tmux
 set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
 set $obs obs
 set $scrcpy guiscrcpy
@@ -24,6 +24,7 @@ set $vncout /home/mav/.local/bin/vncout
 set $wallpaper_dir /home/mav/wallpaper
 set $audio-controls pavucontrol
 set $keyboard-sound "killall buckle; /home/mav/.local/bin/buckle"
+set $nag exec swaynagmode
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -97,6 +98,7 @@ exec swaync
     bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m region
     bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
+    bindsym $mod+c exec /home/mav/.local/bin/toggle-wf-recorder &> /home/mav/recordings
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -115,7 +117,7 @@ exec swaync
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e $nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -242,4 +244,13 @@ bar {
 
 }
 
+mode "nag" {
+    bindsym {
+        Ctrl+d mode "default"
+        Ctrl+c $nag --exit
+        Return $nag --confirm
+        j $nag --select prev
+        k $nag --select next
+    }
+}
 include /etc/sway/config.d/*

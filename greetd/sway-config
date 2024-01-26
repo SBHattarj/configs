@@ -1,9 +1,21 @@
 exec '/etc/greetd/create_css; GTK_THEME=Adwaita:dark gtkgreet -l -s /etc/greetd/gtkgreet.css; swaymsg exit'
 
-bindsym Mod1+shift+e exec swaynag \
+set $nag exec swaynagmode
+
+bindsym Mod1+shift+e $nag \
 -t warning \
 -m 'What do you want to do?' \
 -b 'Poweroff' 'systemctl poweroff' \
 -b 'Reboot' 'systemctl reboot'
+
+mode "nag" {
+    bindsym {
+        Ctrl+d mode "default"
+        Ctrl+c $nag --exit
+        Return $nag --confirm
+        j $nag --select prev
+        k $nag --select next
+    }
+}
 
 include /etc/sway/config.d/*

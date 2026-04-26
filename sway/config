@@ -248,9 +248,10 @@ mode "nag" {
     bindsym {
         Ctrl+d mode "default"
         Ctrl+c $nag --exit
+        Escape $nag --exit
         Return $nag --confirm
-        j $nag --select prev
-        k $nag --select next
+        j $nag --select next
+        k $nag --select prev
     }
 }
 include /etc/sway/config.d/*

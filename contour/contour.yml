@@ -21,7 +21,7 @@ renderer:
     # - default     Uses the default rendering option as decided by the terminal.
     # - software    Uses software-based rendering.
     # - OpenGL      Use (possibly) hardware accelerated OpenGL
-    backend: OpenGL
+    backend: default
 
     # Number of hashtable slots to map to the texture tiles.
     # Larger values may increase performance, but too large may also decrease.
@@ -165,7 +165,7 @@ profiles:
 
         # When this profile is *activated*, this flag decides
         # whether or not the title bar will be shown
-        show_title_bar: true
+        show_title_bar: false
         # When this profile is being *activated*, this flag decides
         # whether or not to put the terminal's screen into fullscreen mode.
         #
@@ -181,7 +181,7 @@ profiles:
 
         # Environment variables to be passed to the shell.
         # environment:
-        #     TERM: contour
+        #     TERM: screen-256color
         #     COLORTERM: truecolor
 
         # Determines the terminal type that is being advertised.
@@ -259,7 +259,7 @@ profiles:
         # Font related configuration (font face, styles, size, rendering mode).
         font:
             # Initial font size in pixels.
-            size: 12
+            size: 11
 
             # Font Locator API
             # Selects an engine to use for locating font files on the system.
@@ -298,7 +298,7 @@ profiles:
 
             # Indicates whether or not to include *only* monospace fonts in the font and
             # font-fallback list (Default: true).
-            strict_spacing: true
+            strict_spacing: false
 
             # Font family to use for displaying text.
             #
@@ -415,6 +415,9 @@ profiles:
         hyperlink_decoration:
             normal: dotted
             hover: underline
+        margins:
+          horizontal: 0
+          vertical: 0
 
 # Color Profiles
 # --------------

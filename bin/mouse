@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+import contextlib
+import os
+import uinput
+import time
+import sys
+from pathlib import Path
+
+SPEED = 20
+SCROLL_SPEED = 1
+
+@contextlib.contextmanager
+def get_mouse_keyboard():
+    with uinput.Device([
+        uinput.REL_X,
+        uinput.REL_Y,
+        uinput.BTN_LEFT,
+        uinput.BTN_RIGHT,
+        uinput.BTN_MIDDLE,
+        uinput.REL_WHEEL,
+        uinput.REL_HWHEEL
+    ]) as mouse:
+        with uinput.Device([uinput.KEY_LEFTSHIFT, uinput.KEY_UP, uinput.KEY_DOWN, uinput.KEY_LEFT, uinput.KEY_RIGHT]) as keyboard:
+            yield mouse, keyboard
+
+def main():
+    drag_file = Path.home() / ".drag"
+    command: str = sys.argv[1].lower()
+    with get_mouse_keyboard() as (mouse, keyboard):
+        time.sleep(0.05)
+        if command == "up":
+            mouse.emit(uinput.REL_Y, -SPEED, syn=True)
+            return
+        if command == "down":
+            mouse.emit(uinput.REL_Y, SPEED, syn=True)
+            return
+        if command == "left":
+            mouse.emit(uinput.REL_X, -SPEED, syn=True)
+            return
+        if command == "right":
+            mouse.emit(uinput.REL_X, SPEED, syn=True)
+            return
+        if command == "scroll-up":
+            mouse.emit(uinput.REL_WHEEL, SCROLL_SPEED, syn=True)
+            return
+        if command == "scroll-down":
+            mouse.emit(uinput.REL_WHEEL, -SCROLL_SPEED, syn=True)
+            return
+        if command == "scroll-left":
+            mouse.emit(uinput.REL_HWHEEL, -SCROLL_SPEED, syn=True)
+            return
+        if command == "scroll-right":
+            mouse.emit(uinput.REL_HWHEEL, SCROLL_SPEED, syn=True)
+            return
+        if command == "middle-click":
+            mouse.emit(uinput.BTN_MIDDLE, 1, syn=True)
+            time.sleep(0.05)
+            mouse.emit(uinput.BTN_MIDDLE, 0, syn=True)
+            return
+        if command == "click":
+            mouse.emit(uinput.BTN_LEFT, 1, syn=True)
+            time.sleep(0.05)
+            mouse.emit(uinput.BTN_LEFT, 0, syn=True)
+            return
+        if command == "right-click":
+            mouse.emit(uinput.BTN_RIGHT, 1, syn=True)
+            time.sleep(0.05)
+            mouse.emit(uinput.BTN_RIGHT, 0, syn=True)
+            return
+        if command == "left-key":
+            keyboard.emit_click(uinput.KEY_LEFT, syn=True)
+            return
+        if command == "right-key":
+            keyboard.emit_click(uinput.KEY_RIGHT, syn=True)
+            return
+        if command == "up-key":
+            keyboard.emit_click(uinput.KEY_UP, syn=True)
+            return
+        if command == "down-key":
+            keyboard.emit_click(uinput.KEY_DOWN, syn=True)
+            return
+        if command == "drag-start":
+
+            open(drag_file, "w").close()
+            mouse.emit(uinput.BTN_LEFT, 1, syn=True)
+            while drag_file.exists():
+                time.sleep(0.05)
+                mouse.emit(uinput.REL_X, 0, syn=True)
+            mouse.emit(uinput.BTN_LEFT, 0, syn=True)
+            return
+        if not drag_file.exists():
+            return
+        os.remove(drag_file)
+
+
+if __name__ == "__main__":
+    main()

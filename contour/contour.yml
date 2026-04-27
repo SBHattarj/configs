@@ -744,6 +744,10 @@ input_mapping:
     - { mods: [Control, Shift], key: 'H',           action: NoSearchHighlight }
     - { mods: [],               key: 'F3',          action: FocusNextSearchMatch }
     - { mods: [Shift],          key: 'F3',          action: FocusPreviousSearchMatch }
+    - { mods: [Control],        key: LeftArrow,          action: SendChars, chars: "\x1B[D" }
+    - { mods: [Control],        key: RightArrow,         action: SendChars, chars: "\x1B[C" }
+    - { mods: [Control],        key: UpArrow,            action: SendChars, chars: "\x1B[A" }
+    - { mods: [Control],        key: DownArrow,          action: SendChars, chars: "\x1B[B" }
 
 #   - { mods: [Control, Meta],  key: 'E',           action: TraceEnter,             mode: "~Trace" }
 #   - { mods: [Control, Meta],  key: 'E',           action: TraceLeave,             mode: "Trace" }

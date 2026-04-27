@@ -18,17 +18,34 @@ set $term GKT_THEME=Materia-dark contour tmux
 set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
 set $obs obs
 set $scrcpy guiscrcpy
-set $chbgrnd /home/mav/.local/bin/chbgrnd
-set $virtoutinit /home/mav/.local/bin/virtoutinit
-set $vncout /home/mav/.local/bin/vncout
-set $wallpaper_dir /home/mav/wallpaper
+set $chbgrnd ~/.local/bin/chbgrnd
+set $virtoutinit ~/.local/bin/virtoutinit
+set $vncout ~/.local/bin/vncout
+set $wallpaper_dir ~/wallpaper
 set $audio-controls pavucontrol
 set $keyboard-sound "killall buckle; /home/mav/.local/bin/buckle"
 set $nag exec swaynagmode
+set $move_mouse_up ~/.local/bin/mouse up
+set $move_mouse_down ~/.local/bin/mouse down
+set $move_mouse_left ~/.local/bin/mouse left
+set $move_mouse_right ~/.local/bin/mouse right
+set $drag_start "~/.local/bin/mouse drag-start"
+set $drag_end "~/.local/bin/mouse drag-end"
+set $scroll_mouse_up "~/.local/bin/mouse scroll-up"
+set $scroll_mouse_down "~/.local/bin/mouse scroll-down"
+set $scroll_mouse_left "~/.local/bin/mouse scroll-left"
+set $scroll_mouse_right "~/.local/bin/mouse scroll-right"
+set $mouse_click "~/.local/bin/mouse click"
+set $mouse_right_click "~/.local/bin/mouse right-click"
+set $mouse_middle_click "~/.local/bin/mouse middle-click"
+set $key_up "~/.local/bin/mouse up-key"
+set $key_down "~/.local/bin/mouse down-key"
+set $key_right "~/.local/bin/mouse right-key"
+set $key_left "~/.local/bin/mouse left-key"
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu GTK_THEME=Materia-dark /home/mav/.local/bin/ulauncher
+set $menu GTK_THEME=Materia-dark ~/.local/bin/ulauncher
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -99,6 +116,10 @@ exec swaync
     bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
     bindsym $mod+c exec /home/mav/.local/bin/toggle-wf-recorder &> /home/mav/recordings
+    bindsym Ctrl+k exec $key_up
+    bindsym ctrl+j exec $key_down
+    bindsym Ctrl+h exec $key_left
+    bindsym Ctrl+l exec $key_right
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -230,6 +251,7 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+r mode "resize"
+bindsym $mod+shift+m mode "mouse"
 
 #
 # Status Bar:
@@ -253,5 +275,39 @@ mode "nag" {
         j $nag --select next
         k $nag --select prev
     }
+}
+mode "mouse" {
+    bindsym $mod+k exec $move_mouse_up
+    bindsym $mod+j exec $move_mouse_down
+    bindsym $mod+h exec $move_mouse_left
+    bindsym $mod+l exec $move_mouse_right
+    bindsym $mod+a exec $mouse_click
+    bindsym $mod+f exec $mouse_right
+    bindsym $mod+e exec $mouse_middle
+    bindsym $mod+d mode "mouse-drag"; exec $drag_start
+    bindsym $mod+s mode "mouse-scroll"
+    bindsym Escape mode "default"
+}
+mode "mouse-scroll" {
+    bindsym $mod+k exec $scroll_mouse_up
+    bindsym $mod+j exec $scroll_mouse_down
+    bindsym $mod+h exec $scroll_mouse_left
+    bindsym $mod+l exec $scroll_mouse_right
+    bindsym $mod+a exec $mouse_click
+    bindsym $mod+f exec $mouse_right
+    bindsym $mod+e exec $mouse_middle
+    bindsym $mod+s mode "mouse"; exec $drag_end
+    bindsym Escape mode "mouse"
+}
+mode "mouse-drag" {
+    bindsym $mod+k exec $move_mouse_up
+    bindsym $mod+j exec $move_mouse_down
+    bindsym $mod+h exec $move_mouse_left
+    bindsym $mod+l exec $move_mouse_right
+    bindsym $mod+a exec $mouse_click
+    bindsym $mod+f exec $mouse_right
+    bindsym $mod+e exec $mouse_middle
+    bindsym $mod+d mode "mouse"; exec $drag_end
+    bindsym Escape mode "mouse"; exec $drag_end
 }
 include /etc/sway/config.d/*

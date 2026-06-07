@@ -2,4 +2,4 @@
 
 source /home/mav/.zshrc
 
-sway-nvidia
+sway --unsupported-gpu

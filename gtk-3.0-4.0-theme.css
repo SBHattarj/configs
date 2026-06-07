@@ -1,0 +1,73 @@
+@define-color main-bg-color rgba(100, 0, 0, 0.5);
+@define-color main-bg-focus rgba(180, 30, 50, 0.65);
+@define-color main-bg-focus-solid rgba(130, 40, 45, 1.0);
+@define-color checked-bg rgba(180, 30, 120, 0.65);
+@define-color button-color rgba(90, 60, 150, 0.5);
+@define-color button-color rgba(90, 60, 150, 1.0);
+@define-color button-insensitive-color rgba(20, 10, 50, 0.4);
+@define-color border-color rgba(100, 100, 200, 1.0);
+@define-color selection-color rgba(90, 60, 120, 0.7);
+@define-color selection-color-solid rgba(80, 30, 90, 1.0);
+@define-color button-hover-color rgba(100, 80, 180, 0.7);
+* {
+    background-color: transparent;
+    background-image: none;
+    color: white;
+    border-top-color: @border-color;
+    border-bottom-color: @border-color;
+    border-right-color: @border-color;
+    border-left-color: @border-color;
+    box-shadow: none;
+}
+window {
+    background-color: @main-bg-color;
+    font-color: white;
+}
+scale {
+}
+scale slider {
+    background-color: @button-color;
+    background-image: default;
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+scale slider:hover {
+    background-color: @selection-color-solid;
+}
+scale slider:focus, scale slider:active {
+    background-color: @main-bg-focus-solid;
+}
+scale highlight {
+    background-color: @button-hover-color;
+    min-height: 0.5em;
+}
+button {
+  background-color: @button-color;
+}
+button:not(.toggle):focus, button:active, treeview *:hover, treeview *:active {
+    background-color: @main-bg-focus;
+}
+treeview *:hover {
+    background-color: @button-hover-color;
+}
+button.slider-button:hover, treeview *:hover {
+    background-color: @button-hover-color;
+}
+*:checked {
+    background-color: @checked-bg;
+}
+*:checked:focus {
+    background-color: @checked-bg;
+}
+*:selected {
+  background-color: @selection-color;
+}
+button:hover {
+    background-color: @selection-color;
+}
+button:insensitive, treeview *:insensitive {
+    background-color: @button-insensitive-color;
+}
+button:insensitive *:insensitive, treeview *:insensitive *:insensitive {
+    background-color: transparent;
+}

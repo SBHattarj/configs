@@ -22,6 +22,9 @@ ln -rsi $DIR/.zshrc ~/.zshrc
 echo "linking nvim config"
 rm -rf $config/nvim
 ln -rsi $DIR/nvimrc $config/nvim
+echo "linking rofi config"
+rm -rf $config/rofi
+ln -rsi $DIR/rofi $config/rofi
 
 echo "linking oh-my-zsh"
 rm -rf ~/.oh-my-zsh
@@ -40,9 +43,13 @@ ln -rsi $DIR/ssh-config ~/.ssh/config
 echo "linking ulauncher configs"
 rm -rf ~/.config/ulauncher
 ln -rsi $DIR/ulauncher $config/ulauncher
+echo "linking gtk themes"
+rm -rf ~/.config/gtk-3.0/* ~/.config/gtk-4.0/*
+ln -rsi $DIR/gtk-3.0-4.0-theme.css ~/.config/gtk-3.0/gtk.css
+ln -rsi $DIR/gtk-3.0-4.0-them.css ~/.config/gtk-4.0/gtk.css
 echo "linking local binaries"
 mkdir ~/.local
-mkdir ~/.local/bin
+rm -rf ~/.local/bin
 ln -rsi $DIR/bin ~/.local/bin
 chmod u+x $DIR/bin/*
 

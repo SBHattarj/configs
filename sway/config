@@ -45,7 +45,7 @@ set $key_left "~/.local/bin/mouse left-key"
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu GTK_THEME=Materia-dark ~/.local/bin/ulauncher
+set $menu rofi -show drun
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -103,7 +103,7 @@ exec swaync
     # Start a terminal
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
-    bindsym $mod+w exec /home/mav/.local/bin/chbgrnd
+    bindsym $mod+w exec $HOME/.local/bin/chbgrnd
     bindsym $mod+s exec $obs
     bindsym $mod+p exec $scrcpy
     bindsym $mod+v exec $virtoutinit
@@ -115,7 +115,7 @@ exec swaync
     bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m region
     bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
-    bindsym $mod+c exec /home/mav/.local/bin/toggle-wf-recorder &> /home/mav/recordings
+    bindsym $mod+c exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
     bindsym Ctrl+k exec $key_up
     bindsym ctrl+j exec $key_down
     bindsym Ctrl+h exec $key_left

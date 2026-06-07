@@ -1,11 +1,35 @@
 #!/bin/zsh
 
-pid=`pgrep wf-recorder`
-status_=$?
 
-if [ $status_ != 0 ]
+pid=`pgrep wf-recorder`
+status_=$(ps -A | grep "wf-recorder")
+index=0
+if [[ -z $status_ ]];
 then
-    wf-recorder -f $HOME/recordings/$(date +'recording_%Y-%m-%d-%H%M%S.mp4');
+    str="$(wf-recorder -L)"
+    array=(${(f)str})
+    command_options=()
+    for ((i=1; i<=${#array[@]}; i++));
+    do
+        line_arr=(${(s: :)array[$i]})
+        command_options+=("-b" "${line_arr[3]}" "echo '${line_arr[3]}'")
+    done
+    command=(${(f)command})
+    display=$(swaynagmode -t warning -m "select display to record" $command_options)
+    display=(${(f)display})
+    display=${display[6]}
+    e cho $display
+    temp="$(pactl list sources | grep Name | grep bluez_output)"
+    temp="${temp##*:}"
+    audio_device_name="${temp// /}"
+    echo $audio_device_name
+    geometry=$(slurp)
+    wf-recorder -g "$geometry" -f "$HOME/recordings/$(date +'recording_%d-%m-%Y-%H%M%S.mp4')" -o $display
+    sleep 1
+    is_runing=$(ps -a | grep "wf-recorder")
+    echo $is_runing
+    echo "???"
+
 else
-    pkill --signal SIGINT wf-recorder
+    killall wf-recorder
 fi;

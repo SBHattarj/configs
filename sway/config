@@ -7,6 +7,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
+for_window [app_id="gtkgreet"] fullscreen
 set $mod Mod1
 # Home row direction keys, like vim
 set $left h
@@ -45,6 +46,7 @@ set $key_left "~/.local/bin/mouse left-key"
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
+
 set $menu rofi -show drun
 ### Output configuration
 #

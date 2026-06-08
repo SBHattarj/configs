@@ -56,6 +56,7 @@ chmod u+x $DIR/bin/*
 echo "copying greetd config"
 sudo rm -rf /etc/greetd
 sudo cp -r $DIR/greetd /etc/greetd
+sudo touch /etc/greetd/err_log
 sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/*
 sudo chown greeter /etc/greetd/wallpaper/*

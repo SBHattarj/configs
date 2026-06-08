@@ -7,7 +7,7 @@ new_css="window {
     background-position: center;
     background-color: rgba(100, 0, 0, 0.6);
 }
-window>* {
+window :not(box) box {
     background-color: rgba(100, 0, 0, 0.6);
 }
 "

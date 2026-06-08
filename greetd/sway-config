@@ -1,6 +1,7 @@
-exec '/etc/greetd/create_css; GTK_THEME=Adwaita:dark gtkgreet -s "/etc/greetd/gtkgreet.css"; swaymsg exit'
+exec 'GTK_THEME=Adwaita:dark gtkgreet -s "/etc/greetd/gtkgreet.css"; swaymsg exit'
+output * bg `find /etc/greetd/wallpaper -maxdepth 1 -type f | shuf -n 1` fill
 
-for_window [app_id="gtkgreet"] fullscreen
+for_window [app_id="gtkgreet"] border none
 
 set $nag exec swaynagmode
 
@@ -15,6 +16,7 @@ mode "nag" {
     bindsym {
         Ctrl+d mode "default"
         Ctrl+c $nag --exit
+        Escape $nag --exit
         Return $nag --confirm
         j $nag --select prev
         k $nag --select next

@@ -51,6 +51,8 @@ echo "linking local binaries"
 mkdir ~/.local
 rm -rf ~/.local/bin
 ln -rsi $DIR/bin ~/.local/bin
+echo "updating crontab"
+cat $DIR/crontab | crontab
 chmod u+x $DIR/bin/*
 
 echo "copying greetd config"

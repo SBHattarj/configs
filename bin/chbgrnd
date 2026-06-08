@@ -1,10 +1,10 @@
 #!/bin/bash
 
 killall swaybg
-if [ -n $XDG_RUNTIME_DIR ]; then
+if [ -z "$XDG_RUNTIME_DIR" ]; then
     export XDG_RUNTIME_DIR="$(find /run/user/* -maxdepth 1 -print -quit)"
 fi
-if [ -n $WAYLAND_DISPLAY ]; then
+if [ -z "$WAYLAND_DISPLAY" ]; then
     export WAYLAND_DISPLAY="$(ls $XDG_RUNTIME_DIR | grep "wayland-[0-9]$")"
 fi
 wallpaper_dir=/home/mav/wallpaper

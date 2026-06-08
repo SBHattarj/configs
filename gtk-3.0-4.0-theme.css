@@ -1,14 +1,15 @@
-@define-color main-bg-color rgba(100, 0, 0, 0.5);
+@define-color main-bg-color rgba(100, 0, 0, 0.6);
 @define-color main-bg-focus rgba(180, 30, 50, 0.65);
+@define-color main-bg-backdrop rgba(40, 10, 20, 0.7);
 @define-color main-bg-focus-solid rgba(130, 40, 45, 1.0);
 @define-color checked-bg rgba(180, 30, 120, 0.65);
 @define-color button-color rgba(90, 60, 150, 0.5);
-@define-color button-color rgba(90, 60, 150, 1.0);
+@define-color button-color-solid rgba(90, 60, 150, 1.0);
 @define-color button-insensitive-color rgba(20, 10, 50, 0.4);
 @define-color border-color rgba(100, 100, 200, 1.0);
-@define-color selection-color rgba(90, 60, 120, 0.7);
+@define-color selection-color rgba(90, 60, 120, 0.8);
 @define-color selection-color-solid rgba(80, 30, 90, 1.0);
-@define-color button-hover-color rgba(100, 80, 180, 0.7);
+@define-color button-hover-color rgba(110, 140, 220, 0.8);
 *, * * {
     background-color: transparent;
     color: white;
@@ -23,6 +24,12 @@ window, popover, tooltip, filechooser {
     background-color: @main-bg-color;
     color: white;
 }
+overlay>.notification {
+    background-color: @main-bg-color;
+}
+overlay>.notification:hover {
+    background-color: @main-bg-focus;
+}
 popover, tooltip {
     border-radius: 1em;
 }
@@ -32,7 +39,7 @@ row revealer widget box spinner {
     background-color: black;
 }
 scale slider {
-    background-color: @button-color;
+    background-color: @button-color-solid;
     background-image: default;
     border-radius: 1000000px;
     min-width: 2em;
@@ -55,13 +62,16 @@ button:not(.toggle):focus, button:active, treeview *:focus, treeview *:active {
     background-color: @main-bg-focus;
 }
 button.slider-button:hover, treeview *:hover, sidebar *:hover, filechooser *:hover {
-    background-color: @button-hover-color;
+    background-color: @selection-color;
 }
 treeview button:hover {
-    background-color: @button-hover-color;
+    background-color: @selection-color;
 }
 *:checked {
     background-color: @checked-bg;
+}
+*:checked:hover {
+    background-color: @button-hover-color;
 }
 *:checked:focus {
     background-color: @checked-bg;
@@ -78,7 +88,28 @@ button:insensitive, treeview *:insensitive {
 button:insensitive *:insensitive, treeview *:insensitive *:insensitive {
     background-color: transparent;
 }
-/* waybar stylings */
-window#waybar {
+/* swaync */
+.control-center {
     background-color: @main-bg-color;
+}
+.blank-window {
+    background-color: @main-bg-backdrop;
+}
+.widget-title>button {
+    color: white;
+    background-color: @button-color;
+}
+.widget-title>button:hover {
+    background-color: @selection-color;
+}
+.widget-dnd>switch {
+    padding: 0;
+    min-width: 2em;
+    min-height: 2em;
+}
+.widget-dnd>switch:hover {
+    background-color: @button-color;
+}
+.widget-dnd>switch:checked:hover {
+    background-color: @button-hover-color;
 }

@@ -2,6 +2,18 @@
  * vim: ft=less
  */
 
+@define-color main-bg-color rgba(100, 0, 0, 0.5);
+@define-color main-bg-focus rgba(180, 30, 50, 0.65);
+@define-color main-bg-focus-solid rgba(130, 40, 45, 1.0);
+@define-color checked-bg rgba(180, 30, 120, 0.65);
+@define-color button-color rgba(90, 60, 150, 0.5);
+@define-color button-color rgba(90, 60, 150, 1.0);
+@define-color button-insensitive-color rgba(20, 10, 50, 0.4);
+@define-color border-color rgba(100, 100, 200, 1.0);
+@define-color selection-color rgba(90, 60, 120, 0.7);
+@define-color selection-color-solid rgba(80, 30, 90, 1.0);
+@define-color button-hover-color rgba(100, 80, 180, 0.7);
+
 @define-color cc-bg rgba(0, 0, 0, 0.7);
 
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
@@ -16,7 +28,6 @@
 @define-color text-color-disabled rgb(150, 150, 150);
 
 @define-color bg-selected rgb(0, 128, 255);
-
 .notification-row {
   outline: none;
 }
@@ -24,7 +35,6 @@
 .notification-row:focus,
 .notification-row:hover {
   background: @noti-bg-focus;
-  border: 1px solid @noti-bg-hover;
 }
 
 .notification {

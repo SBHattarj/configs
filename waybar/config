@@ -16,8 +16,8 @@
         "temperature",
         "backlight",
         "keyboard-state",
-        "clock",
-        "tray"
+        "tray",
+        "clock"
     ],
     "bluetooth": {
         "format": " {status}",

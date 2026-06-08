@@ -78,3 +78,7 @@ button:insensitive, treeview *:insensitive {
 button:insensitive *:insensitive, treeview *:insensitive *:insensitive {
     background-color: transparent;
 }
+/* waybar stylings */
+window#waybar {
+    background-color: @main-bg-color;
+}

@@ -8,7 +8,7 @@
     "modules-center": ["sway/window"],
     "modules-right": [
         "idle_inhibitor",
-        "pulseaudio",
+        "wireplumber",
         "bluetooth",
         "network",
         "cpu",
@@ -168,7 +168,7 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
-    "pulseaudio": {
+    "wireplumber": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
@@ -185,7 +185,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pwvucontrol"
     },
     "custom/media": {
         "format": "{icon} {}",

@@ -1,0 +1,59 @@
+@define-color main-bg-color rgba(100, 0, 0, 0.5);
+@define-color main-bg-focus rgba(180, 30, 50, 0.65);
+@define-color main-bg-focus-weak rgba(180, 30, 50, 0.3);
+@define-color main-bg-focus-solid rgba(130, 40, 45, 1.0);
+@define-color checked-bg rgba(180, 30, 120, 0.65);
+@define-color button-color rgba(90, 60, 150, 0.5);
+@define-color button-active-color rgba(120, 120, 220, 0.7);
+@define-color button-color rgba(90, 60, 150, 1.0);
+@define-color button-insensitive-color rgba(20, 10, 50, 0.4);
+@define-color border-color rgba(100, 100, 200, 1.0);
+@define-color selection-color rgba(90, 60, 120, 0.7);
+@define-color selection-color-solid rgba(80, 30, 90, 1.0);
+@define-color button-hover-color rgba(100, 80, 180, 0.7);
+window#waybar {
+    background-color: @main-bg-color;
+    padding: 0 0 0.5em 0;
+}
+window#waybar #workspaces {
+    padding: 0 0 0.4em 0;
+}
+window#waybar #workspaces button {
+    padding: 0.1em 0.5em;
+    min-height: 0px;
+    border-radius: 0.4em;
+    margin: 0 0.2em;
+}
+window#waybar #workspaces  button.focused {
+    background-color: @button-active-color;
+}
+window#waybar #workspaces button.focused:hover {
+    background-color: @button-color;
+}
+window#waybar #window > * {
+    padding: 0 10em;
+    background-color: @main-bg-focus-weak;
+    border-radius: 0 0 10em 10em;
+    margin: 0 0 0.5em 0;
+}
+window#waybar #wireplumber {
+    background-color: @button-color;
+    margin: 0 0 0.5em 0;
+    padding: 0.1em 0.5em;
+    border-radius: 0.4em;
+}
+window#waybar #wireplumber:hover {
+    background-color: @button-hover-color;
+}
+window#waybar #wireplumber:focus window#waybar #wireplumber:active {
+    background-color: @button-active-color;
+}
+window#waybar>* {
+    margin: 0.2em 0;
+}
+window#waybar #clock {
+    background-color: @main-bg-focus-weak;
+    border-radius: 0 0 0 10em;
+    padding: 0 0.3em 0 1em;
+    margin: 0 0 0.5em 0;
+}

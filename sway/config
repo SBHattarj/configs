@@ -22,7 +22,7 @@ set $chbgrnd ~/.local/bin/chbgrnd
 set $virtoutinit ~/.local/bin/virtoutinit
 set $vncout ~/.local/bin/vncout
 set $wallpaper_dir ~/wallpaper
-set $audio-controls pavucontrol
+set $audio-controls pwvucontrol
 set $keyboard-sound "killall buckle; /home/mav/.local/bin/buckle"
 set $nag exec swaynagmode
 set $move_mouse_up ~/.local/bin/mouse up

@@ -46,7 +46,7 @@ ln -rsi $DIR/ulauncher $config/ulauncher
 echo "linking gtk themes"
 rm -rf ~/.config/gtk-3.0/* ~/.config/gtk-4.0/*
 ln -rsi $DIR/gtk-3.0-4.0-theme.css ~/.config/gtk-3.0/gtk.css
-ln -rsi $DIR/gtk-3.0-4.0-them.css ~/.config/gtk-4.0/gtk.css
+ln -rsi $DIR/gtk-3.0-4.0-theme.css ~/.config/gtk-4.0/gtk.css
 echo "linking local binaries"
 mkdir ~/.local
 rm -rf ~/.local/bin

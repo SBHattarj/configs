@@ -9,27 +9,34 @@
 @define-color selection-color rgba(90, 60, 120, 0.7);
 @define-color selection-color-solid rgba(80, 30, 90, 1.0);
 @define-color button-hover-color rgba(100, 80, 180, 0.7);
-* {
+*, * * {
     background-color: transparent;
-    background-image: none;
     color: white;
     border-top-color: @border-color;
     border-bottom-color: @border-color;
     border-right-color: @border-color;
     border-left-color: @border-color;
+    background-image: none;
     box-shadow: none;
 }
-window {
+window, popover, tooltip, filechooser {
     background-color: @main-bg-color;
-    font-color: white;
+    color: white;
+}
+popover, tooltip {
+    border-radius: 1em;
 }
 scale {
+}
+row revealer widget box spinner {
+    background-color: black;
 }
 scale slider {
     background-color: @button-color;
     background-image: default;
-    border-radius: 50%;
-    aspect-ratio: 1;
+    border-radius: 1000000px;
+    min-width: 2em;
+    min-height: 2em;
 }
 scale slider:hover {
     background-color: @selection-color-solid;
@@ -44,13 +51,13 @@ scale highlight {
 button {
   background-color: @button-color;
 }
-button:not(.toggle):focus, button:active, treeview *:hover, treeview *:active {
+button:not(.toggle):focus, button:active, treeview *:focus, treeview *:active {
     background-color: @main-bg-focus;
 }
-treeview *:hover {
+button.slider-button:hover, treeview *:hover, sidebar *:hover, filechooser *:hover {
     background-color: @button-hover-color;
 }
-button.slider-button:hover, treeview *:hover {
+treeview button:hover {
     background-color: @button-hover-color;
 }
 *:checked {

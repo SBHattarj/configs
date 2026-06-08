@@ -35,9 +35,6 @@ popover, tooltip {
 }
 scale {
 }
-row revealer widget box spinner {
-    background-color: black;
-}
 scale slider {
     background-color: @button-color-solid;
     background-image: default;
@@ -76,8 +73,14 @@ treeview button:hover {
 *:checked:focus {
     background-color: @checked-bg;
 }
-*:selected {
+*:selected, *:selection, selection {
   background-color: @selection-color;
+}
+*:selected {
+    background-color: @selection-color;
+}
+selection {
+    background-color: @selection-color;
 }
 button:hover {
     background-color: @selection-color;

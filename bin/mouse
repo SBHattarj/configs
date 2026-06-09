@@ -1,10 +1,18 @@
 #!/usr/bin/env python
 import contextlib
-import os
+from functools import partial
 import uinput
 import time
-import sys
 from pathlib import Path
+
+from dataclasses import dataclass, field
+import asyncio
+from pathlib import Path
+import os
+import sys
+import socket
+HOME=Path.home()
+socket_path=HOME/".mouse"
 
 SPEED = 20
 SCROLL_SPEED = 1
@@ -23,75 +31,152 @@ def get_mouse_keyboard():
         with uinput.Device([uinput.KEY_LEFTSHIFT, uinput.KEY_UP, uinput.KEY_DOWN, uinput.KEY_LEFT, uinput.KEY_RIGHT]) as keyboard:
             yield mouse, keyboard
 
-def main():
-    drag_file = Path.home() / ".drag"
-    command: str = sys.argv[1].lower()
+async def mouse_usage(mouse_server: MouseServer):
     with get_mouse_keyboard() as (mouse, keyboard):
-        time.sleep(0.05)
+        await mouse_usage_main(mouse_server, mouse, keyboard)
+
+async def mouse_usage_main(mouse_server: MouseServer, mouse: uinput.Device, keyboard: uinput.Device):
+    dragging = False
+    while True:
+        command = await mouse_server.get_command()
         if command == "up":
             mouse.emit(uinput.REL_Y, -SPEED, syn=True)
-            return
+            continue
         if command == "down":
             mouse.emit(uinput.REL_Y, SPEED, syn=True)
-            return
+            continue
         if command == "left":
             mouse.emit(uinput.REL_X, -SPEED, syn=True)
-            return
+            continue
         if command == "right":
             mouse.emit(uinput.REL_X, SPEED, syn=True)
-            return
+            continue
         if command == "scroll-up":
             mouse.emit(uinput.REL_WHEEL, SCROLL_SPEED, syn=True)
-            return
+            continue
         if command == "scroll-down":
             mouse.emit(uinput.REL_WHEEL, -SCROLL_SPEED, syn=True)
-            return
+            continue
         if command == "scroll-left":
             mouse.emit(uinput.REL_HWHEEL, -SCROLL_SPEED, syn=True)
-            return
+            continue
         if command == "scroll-right":
             mouse.emit(uinput.REL_HWHEEL, SCROLL_SPEED, syn=True)
-            return
+            continue
         if command == "middle-click":
             mouse.emit(uinput.BTN_MIDDLE, 1, syn=True)
-            time.sleep(0.05)
+            await asyncio.sleep(0.05)
             mouse.emit(uinput.BTN_MIDDLE, 0, syn=True)
-            return
+            continue
         if command == "click":
             mouse.emit(uinput.BTN_LEFT, 1, syn=True)
-            time.sleep(0.05)
+            await asyncio.sleep(0.05)
             mouse.emit(uinput.BTN_LEFT, 0, syn=True)
-            return
+            continue
         if command == "right-click":
             mouse.emit(uinput.BTN_RIGHT, 1, syn=True)
-            time.sleep(0.05)
+            await asyncio.sleep(0.05)
             mouse.emit(uinput.BTN_RIGHT, 0, syn=True)
-            return
+            continue
         if command == "left-key":
             keyboard.emit_click(uinput.KEY_LEFT, syn=True)
-            return
+            continue
         if command == "right-key":
             keyboard.emit_click(uinput.KEY_RIGHT, syn=True)
-            return
+            continue
         if command == "up-key":
             keyboard.emit_click(uinput.KEY_UP, syn=True)
-            return
+            continue
         if command == "down-key":
             keyboard.emit_click(uinput.KEY_DOWN, syn=True)
-            return
-        if command == "drag-start":
-
-            open(drag_file, "w").close()
+            continue
+        if command == "drag-start" and not dragging:
+            dragging=True
             mouse.emit(uinput.BTN_LEFT, 1, syn=True)
-            while drag_file.exists():
-                time.sleep(0.05)
-                mouse.emit(uinput.REL_X, 0, syn=True)
+            mouse.emit(uinput.REL_X, 0, syn=True)
+            continue
+        if command == "drag-end" and dragging:
             mouse.emit(uinput.BTN_LEFT, 0, syn=True)
-            return
-        if not drag_file.exists():
-            return
-        os.remove(drag_file)
+            dragging=False
+            continue
+        if command == "exit":
+            loop = asyncio.get_running_loop()
+            loop.call_soon_threadsafe(loop.stop)
+            sys.exit(0)
 
+@dataclass(slots=True)
+class MouseServer:
+    __command_queue: asyncio.Queue = field(default_factory=asyncio.Queue)
+
+
+    async def get_command(self) -> str:
+        return await self.__command_queue.get()
+
+    def send(self, message: str):
+        self.__command_queue.put_nowait(message)
+
+    def __post_init__(self):
+        asyncio.create_task(mouse_usage(self))
+
+
+@dataclass(slots=True)
+class MouseServerProtocol(asyncio.Protocol):
+    mouse_server: MouseServer
+    transport: asyncio.Transport | None = None
+    def connection_made(self, transport):
+        self.transport = transport
+
+    def data_received(self, data):
+        self.mouse_server.send(data.decode())
+        self.transport.close()
+
+def get_argument() -> str:
+    if len(sys.argv) < 2: return ""
+    return sys.argv[1]
+
+def empty_dir(path: Path):
+    if path == HOME: return
+    if not path.is_relative_to(HOME): return
+
+    for root, dirs, files in path.walk(top_down=False):
+        for name in files:
+            (root/name).unlink()
+        for name in dirs:
+            (root/name).rmdir()
+
+def remove_path(path: Path):
+    if path.is_dir():
+        empty_dir(path)
+        path.rmdir()
+        return
+    path.unlink()
+
+async def try_connection(loop: asyncio.EventLoop) -> bool:
+    if not socket_path.exists():
+        return False
+    try:
+        argument = get_argument()
+        (transport, _) = await loop.create_unix_connection(asyncio.Protocol, path=socket_path)
+        if argument != "":
+            transport.write(argument.encode())
+        return True
+    except ConnectionRefusedError:
+        remove_path(socket_path)
+        return False
+
+async def first_connection(loop: asyncio.EventLoop):
+    await asyncio.sleep(0.05)
+    await try_connection(loop)
+
+async def main():
+    loop = asyncio.get_running_loop()
+    was_client = await try_connection(loop)
+    if was_client: return
+    mouse_server=MouseServer()
+    server = await loop.create_unix_server(partial(MouseServerProtocol, mouse_server), path=socket_path, cleanup_socket=True)
+    asyncio.create_task(first_connection(loop))
+    async with server:
+        await server.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

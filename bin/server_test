@@ -1,0 +1,66 @@
+#!/bin/env python
+from dataclasses import dataclass
+import asyncio
+from pathlib import Path
+import os
+import sys
+import socket
+HOME=Path.home()
+socket_path=HOME/".mouse"
+
+@dataclass(slots=True)
+class ServerProtocol(asyncio.Protocol):
+    message: str = ""
+    transport: Asyncio.Transport | None = None
+    def connection_made(self, transport):
+        self.transport = transport
+
+    def data_received(self, data):
+        message += data.decode()
+        print("message", self.message)
+        self.transport.close()
+
+def get_argument() -> str:
+    if len(sys.argv) < 2: return ""
+    return sys.argv[1]
+
+def empty_dir(path: Path):
+    if path == HOME: return
+    if not path.is_relative_to(HOME): return
+
+    for root, dirs, files in path.walk(top_down=False):
+        for name in files:
+            (root/name).unlink()
+        for name in dirs:
+            (root/name).rmdir()
+
+def remove_path(path: Path):
+    if path.is_dir():
+        empty_dir(path)
+        path.rmdir()
+        return
+    path.unlink()
+
+async def try_connection(loop: asyncio.EventLoop) -> bool:
+    if not socket_path.exists():
+        return False
+    try:
+        
+        (transport, protocol) = await loop.create_unix_connection(asyncio.Protocol, path=socket_path)
+        transport.write(get_argument().encode())
+        print(transport, protocol)
+        return True
+    except ConnectionRefusedError:
+        remove_path(socket_path)
+        return False
+
+async def main():
+    loop = asyncio.get_running_loop()
+    was_client = await try_connection(loop)
+    if was_client: return
+    server = await loop.create_unix_server(ServerProtocol, path=socket_path, cleanup_socket=True)
+    async with server:
+        await server.serve_forever()
+
+if __name__ == "__main__":
+    asyncio.run(main())

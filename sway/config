@@ -279,37 +279,37 @@ mode "nag" {
     }
 }
 mode "mouse" {
-    bindsym $mod+k exec $move_mouse_up
-    bindsym $mod+j exec $move_mouse_down
-    bindsym $mod+h exec $move_mouse_left
-    bindsym $mod+l exec $move_mouse_right
-    bindsym $mod+a exec $mouse_click
-    bindsym $mod+f exec $mouse_right_click
-    bindsym $mod+e exec $mouse_middle_click
-    bindsym $mod+d mode "mouse-drag"; exec $drag_start
-    bindsym $mod+s mode "mouse-scroll"
+    bindsym k exec $move_mouse_up
+    bindsym j exec $move_mouse_down
+    bindsym h exec $move_mouse_left
+    bindsym l exec $move_mouse_right
+    bindsym a exec $mouse_click
+    bindsym f exec $mouse_right_click
+    bindsym s exec $mouse_middle_click
+    bindsym Ctrl+Shift+d mode "mouse-drag"; exec $drag_start
+    bindsym Ctrl+Shift+s mode "mouse-scroll"
     bindsym Escape mode "default"
 }
 mode "mouse-scroll" {
-    bindsym $mod+k exec $scroll_mouse_up
-    bindsym $mod+j exec $scroll_mouse_down
-    bindsym $mod+h exec $scroll_mouse_left
-    bindsym $mod+l exec $scroll_mouse_right
-    bindsym $mod+a exec $mouse_click
-    bindsym $mod+f exec $mouse_right_click
-    bindsym $mod+e exec $mouse_middle_click
-    bindsym $mod+s mode "mouse";
+    bindsym k exec $scroll_mouse_up
+    bindsym j exec $scroll_mouse_down
+    bindsym h exec $scroll_mouse_left
+    bindsym l exec $scroll_mouse_right
+    bindsym a exec $mouse_click
+    bindsym f exec $mouse_right_click
+    bindsym s exec $mouse_middle_click
+    bindsym Ctrl+Shift+s mode "mouse";
     bindsym Escape mode "mouse";
 }
 mode "mouse-drag" {
-    bindsym $mod+k exec $move_mouse_up
-    bindsym $mod+j exec $move_mouse_down
-    bindsym $mod+h exec $move_mouse_left
-    bindsym $mod+l exec $move_mouse_right
-    bindsym $mod+a exec $mouse_click
-    bindsym $mod+f exec $mouse_right
-    bindsym $mod+e exec $mouse_middle
-    bindsym $mod+d mode "mouse"; exec $drag_end
+    bindsym k exec $move_mouse_up
+    bindsym j exec $move_mouse_down
+    bindsym h exec $move_mouse_left
+    bindsym l exec $move_mouse_right
+    bindsym a exec $mouse_click
+    bindsym f exec $mouse_right_click
+    bindsym s exec $mouse_middle_click
+    bindsym Ctrl+Shift+d mode "mouse"; exec $drag_end
     bindsym Escape mode "mouse"; exec $drag_end
 }
 include /etc/sway/config.d/*

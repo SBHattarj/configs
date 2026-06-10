@@ -24,7 +24,7 @@ set $virtoutinit ~/.local/bin/virtoutinit
 set $vncout ~/.local/bin/vncout
 set $wallpaper_dir ~/wallpaper
 set $audio-controls pwvucontrol
-set $keyboard-sound "killall buckle; /home/mav/.local/bin/buckle"
+set $keyboard-sound "killall buckle; $HOME/.local/bin/buckle"
 set $nag exec swaynagmode
 set $move_mouse_up ~/.local/bin/mouse up
 set $move_mouse_down ~/.local/bin/mouse down
@@ -61,7 +61,7 @@ output HEADLESS-2 {
 }
 default_border pixel 4
 default_floating_border pixel 4
-output * bg `find $wallpaper_dir -maxdepth 1 -type f | shuf -n 1` fill
+output * bg `find -H $wallpaper_dir -maxdepth 1 -type f -not -path \"*/.*\" | shuf -n 1` fill
 exec swaync
 
 #
@@ -114,8 +114,8 @@ exec swaync
     bindsym $mod+Shift+a exec $audio-controls
     bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+Plus exec shotman --capture output
-    bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m region
-    bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=/home/mav/screenshots/ sway-screenshot -m window
+    bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m region
+    bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
     bindsym $mod+c exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
     bindsym Ctrl+k exec $key_up

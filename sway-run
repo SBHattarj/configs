@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-source /home/mav/.zshrc
+source $HOME/.zshrc
 
 sway --unsupported-gpu

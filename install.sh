@@ -8,61 +8,67 @@ while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
-config=~/.config
+config="~/.config"
 echo "linking bashrc"
-ln -rsi $DIR/.bashrc ~/.bashrc
+ln -rsi "$DIR/.bashrc" "~/.bashrc"
 echo "linking tmux.conf"
-ln -rsi $DIR/.tmux.conf ~/.tmux.conf
+ln -rsi "$DIR/.tmux.conf" "~/.tmux.conf"
 echo "linking contour config"
-rm -rf $config/contour
-ln -rsi $DIR/contour $config/contour
+rm -rf "$config/contour"
+ln -rsi "$DIR/contour" "$config/contour"
 echo "linking zshrc"
-rm -rf ~/.zshrc
-ln -rsi $DIR/.zshrc ~/.zshrc
+rm -rf "~/.zshrc"
+ln -rsi "$DIR/.zshrc" "~/.zshrc"
 echo "linking nvim config"
-rm -rf $config/nvim
-ln -rsi $DIR/nvimrc $config/nvim
+rm -rf "$config/nvim"
+ln -rsi "$DIR/nvimrc" "$config/nvim"
 echo "linking rofi config"
-rm -rf $config/rofi
-ln -rsi $DIR/rofi $config/rofi
+rm -rf "$config/rofi"
+ln -rsi "$DIR/rofi" "$config/rofi"
 
 echo "linking oh-my-zsh"
-rm -rf ~/.oh-my-zsh
-ln -rsi $DIR/.oh-my-zsh ~/.oh-my-zsh
+rm -rf "~/.oh-my-zsh"
+ln -rsi "$DIR/.oh-my-zsh" "~/.oh-my-zsh"
 echo "linking sway config"
-rm -rf ~/.config/sway
-ln -rsi $DIR/sway $config/sway
+rm -rf "~/.config/sway"
+ln -rsi "$DIR/sway" "$config/sway"
 echo "linking swaync config"
-rm -rf ~/.config/swaync
-ln -rsi $DIR/swaync $config/swaync
+rm -rf "~/.config/swaync"
+ln -rsi "$DIR/swaync" "$config/swaync"
 echo "linking waybar config"
-rm -rf ~/.config/waybar
-ln -rsi $DIR/waybar $config/waybar
+rm -rf "~/.config/waybar"
+ln -rsi "$DIR/waybar" "$config/waybar"
 echo "linking ssh config"
-ln -rsi $DIR/ssh-config ~/.ssh/config
+ln -rsi "$DIR/ssh-config" "~/.ssh/config"
 echo "linking ulauncher configs"
-rm -rf ~/.config/ulauncher
-ln -rsi $DIR/ulauncher $config/ulauncher
+rm -rf "~/.config/ulauncher"
+ln -rsi "$DIR/ulauncher" "$config/ulauncher"
 echo "linking gtk themes"
-rm -rf ~/.config/gtk-3.0/* ~/.config/gtk-4.0/*
-ln -rsi $DIR/gtk-3.0-4.0-theme.css ~/.config/gtk-3.0/gtk.css
-ln -rsi $DIR/gtk-3.0-4.0-theme.css ~/.config/gtk-4.0/gtk.css
+rm -rf "~/.config/gtk-3.0/*" "~/.config/gtk-4.0/*"
+ln -rsi "$DIR/gtk-3.0-4.0-theme.css" "~/.config/gtk-3.0/gtk.css"
+ln -rsi "$DIR/gtk-3.0-4.0-theme.css" "~/.config/gtk-4.0/gtk.css"
 echo "linking local binaries"
-mkdir ~/.local
-rm -rf ~/.local/bin
-ln -rsi $DIR/bin ~/.local/bin
+mkdir "~/.local"
+rm -rf "~/.local/bin"
+ln -rsi "$DIR/bin" "~/.local/bin"
+echo "linking wallpapers"
+rm -rf "~/wallpaper"
+ln -rsi "$DIR/greetd/wallpaper" "~/wallpapers"
 echo "updating crontab"
 cat $DIR/crontab | crontab
-chmod u+x $DIR/bin/*
+chmod u+x "$DIR/bin/*"
 
-echo "copying greetd config"
-sudo rm -rf /etc/greetd
-sudo cp -r $DIR/greetd /etc/greetd
-sudo touch /etc/greetd/err_log
-sudo chown greeter /etc/greetd/*
-sudo chown greeter /etc/greetd/*
-sudo chown greeter /etc/greetd/wallpaper/*
-sudo cp $DIR/sway-run /usr/bin/sway-run
+echo "linking greetd config"
+sudo rm -rf "/etc/greetd"
+sudo mkdir "/etc/greetd"
+sudo ln -rsi "$DIR/greetd/*" "/etc/greetd/"
+sudo chgrp -R greeter "$DIR/greetd"
+sudo chgrp greeter "$HOME"
+sudo chmod g+x "$HOME"
+sudo chgrp -R greeter "/etc/greetd"
+sudo chmod -R g+rwX "$DIR/greetd"
+sudo chmod -R g+rwX "/etc/greetd"
+sudo ln -rsi $DIR/sway-run "/usr/bin/sway-run"
 
 echo "copying sway-run"
-sudo chmod a+x /usr/bin/sway-run
+sudo chmod a+x "/usr/bin/sway-run"

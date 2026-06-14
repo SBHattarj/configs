@@ -63,6 +63,7 @@ default_border pixel 4
 default_floating_border pixel 4
 output * bg `find -H $wallpaper_dir -maxdepth 1 -type f -not -path \"*/.*\" | shuf -n 1` fill
 exec swaync
+exec "clipcascade --xmode false >> ~/.log"
 
 #
 # Example configuration:

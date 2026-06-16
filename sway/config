@@ -7,7 +7,6 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-for_window [app_id="gtkgreet"] fullscreen
 set $mod Mod1
 # Home row direction keys, like vim
 set $left h
@@ -106,7 +105,7 @@ exec "clipcascade --xmode false >> ~/.log"
     # Start a terminal
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
-    bindsym $mod+w exec $HOME/.local/bin/chbgrnd
+    bindsym $mod+Shift+w exec $HOME/.local/bin/chbgrnd
     bindsym $mod+s exec $obs
     bindsym $mod+p exec $scrcpy
     bindsym $mod+v exec $virtoutinit
@@ -119,10 +118,18 @@ exec "clipcascade --xmode false >> ~/.log"
     bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
     bindsym $mod+c exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
-    bindsym Ctrl+k exec $key_up
-    bindsym ctrl+j exec $key_down
-    bindsym Ctrl+h exec $key_left
-    bindsym Ctrl+l exec $key_right
+    bindsym --to-code --no-repeat Ctrl+$up exec $key_up
+    bindsym --to-code --release Ctrl+Up+$up exec $key_up
+    bindsym --to-code --no-repeat ctrl+$down exec $key_down
+    bindsym --to-code --release Ctrl+Down+$down exec $key_down
+    bindsym --to-code --no-repeat Ctrl+$left exec $key_left
+    bindsym --to-code --release Ctrl+Left+$left exec $key_left
+    bindsym --to-code --no-repeat Ctrl+$right exec $key_right
+    bindsym --to-code --release Ctrl+Right+$right exec $key_right
+    #bindsym Ctrl+Up+$up exec $key_up
+    #bindsym ctrl+Down+$down exec $key_down
+    #bindsym Ctrl+Left+$left exec $key_left
+    #bindsym Ctrl+Right+$right exec $key_right
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -204,7 +211,7 @@ exec "clipcascade --xmode false >> ~/.log"
 
     # Switch the current container between different layout styles
     bindsym $mod+shift+s layout stacking
-    bindsym $mod+shift+w layout tabbed
+    bindsym $mod+shift+g layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
@@ -217,22 +224,12 @@ exec "clipcascade --xmode false >> ~/.log"
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    bindsym $mod+period focus parent
 #
 # Resizing containers:
 #
+
+
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -255,6 +252,8 @@ mode "resize" {
 }
 bindsym $mod+Shift+r mode "resize"
 bindsym $mod+shift+m mode "mouse"
+bindsym $mod+w mode "workspaces"
+bindsym $mod+a mode "arrow"
 
 #
 # Status Bar:
@@ -280,10 +279,10 @@ mode "nag" {
     }
 }
 mode "mouse" {
-    bindsym k exec $move_mouse_up
-    bindsym j exec $move_mouse_down
-    bindsym h exec $move_mouse_left
-    bindsym l exec $move_mouse_right
+    bindsym $up exec $move_mouse_up
+    bindsym $down exec $move_mouse_down
+    bindsym $left exec $move_mouse_left
+    bindsym $right exec $move_mouse_right
     bindsym a exec $mouse_click
     bindsym f exec $mouse_right_click
     bindsym s exec $mouse_middle_click
@@ -292,10 +291,10 @@ mode "mouse" {
     bindsym Escape mode "default"
 }
 mode "mouse-scroll" {
-    bindsym k exec $scroll_mouse_up
-    bindsym j exec $scroll_mouse_down
-    bindsym h exec $scroll_mouse_left
-    bindsym l exec $scroll_mouse_right
+    bindsym $up exec $scroll_mouse_up
+    bindsym $down exec $scroll_mouse_down
+    bindsym $left exec $scroll_mouse_left
+    bindsym $right exec $scroll_mouse_right
     bindsym a exec $mouse_click
     bindsym f exec $mouse_right_click
     bindsym s exec $mouse_middle_click
@@ -303,14 +302,42 @@ mode "mouse-scroll" {
     bindsym Escape mode "mouse";
 }
 mode "mouse-drag" {
-    bindsym k exec $move_mouse_up
-    bindsym j exec $move_mouse_down
-    bindsym h exec $move_mouse_left
-    bindsym l exec $move_mouse_right
+    bindsym $up exec $move_mouse_up
+    bindsym $down exec $move_mouse_down
+    bindsym $left exec $move_mouse_left
+    bindsym $right exec $move_mouse_right
     bindsym a exec $mouse_click
     bindsym f exec $mouse_right_click
     bindsym s exec $mouse_middle_click
     bindsym Ctrl+Shift+d mode "mouse"; exec $drag_end
     bindsym Escape mode "mouse"; exec $drag_end
+}
+mode "arrow" {
+    bindsym --to-code --no-repeat $up exec $key_up
+    bindsym --to-code --release Up+$up exec $key_up
+    bindsym --to-code --no-repeat $down exec $key_down
+    bindsym --to-code --release Down+$down exec $key_down
+    bindsym --to-code --no-repeat $left exec $key_left
+    bindsym --to-code --release Left+$left exec $key_left
+    bindsym --to-code --no-repeat $right exec $key_right
+    bindsym --to-code --release Right+$right exec $key_right
+    bindsym Escape mode "default"
+}
+mode "workspaces" {
+    # terminal
+    bindsym t workspace number 1; mode "default"
+    # browser
+    bindsym b workspace number 2; mode "default"
+    # discord
+    bindsym d workspace number 3; mode "default"
+    #runner/others
+    bindsym r workspace number 4; mode "default"
+    #testing/development
+    bindsym e workspace number 5; mode "default"
+    bindsym Shift+t move container to workspace number 1; mode "default"
+    bindsym Shift+b move container to workspace number 2; mode "default"
+    bindsym Shift+d move container to workspace number 3; mode "default"
+    bindsym Shift+r move container to workspace number 4; mode "default"
+    bindsym Shift+e move container to workspace number 5; mode "default"
 }
 include /etc/sway/config.d/*

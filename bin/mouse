@@ -106,7 +106,7 @@ async def mouse_usage_main(mouse_server: MouseServer, mouse: uinput.Device, keyb
 
 @dataclass(slots=True)
 class MouseServer:
-    __command_queue: asyncio.Queue = field(default_factory=asyncio.Queue)
+    __command_queue: asyncio.Queue = field(default_factory=asyncio.Queue, init=False)
 
 
     async def get_command(self) -> str:
@@ -122,12 +122,13 @@ class MouseServer:
 @dataclass(slots=True)
 class MouseServerProtocol(asyncio.Protocol):
     mouse_server: MouseServer
-    transport: asyncio.Transport | None = None
+    transport: asyncio.BaseTransport | None = None
     def connection_made(self, transport):
         self.transport = transport
 
     def data_received(self, data):
         self.mouse_server.send(data.decode())
+        if self.transport == None: return
         self.transport.close()
 
 def get_argument() -> str:
@@ -151,12 +152,12 @@ def remove_path(path: Path):
         return
     path.unlink()
 
-async def try_connection(loop: asyncio.EventLoop) -> bool:
+async def try_connection(loop: asyncio.AbstractEventLoop) -> bool:
     if not socket_path.exists():
         return False
     try:
         argument = get_argument()
-        (transport, _) = await loop.create_unix_connection(asyncio.Protocol, path=socket_path)
+        (transport, _) = await loop.create_unix_connection(asyncio.Protocol, path=str(socket_path))
         if argument != "":
             transport.write(argument.encode())
         return True
@@ -164,7 +165,7 @@ async def try_connection(loop: asyncio.EventLoop) -> bool:
         remove_path(socket_path)
         return False
 
-async def first_connection(loop: asyncio.EventLoop):
+async def first_connection(loop: asyncio.AbstractEventLoop):
     await asyncio.sleep(0.05)
     await try_connection(loop)
 

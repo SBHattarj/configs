@@ -17,6 +17,7 @@
         "backlight",
         "keyboard-state",
         "tray",
+        "custom/recording",
         "clock"
     ],
     "bluetooth": {
@@ -31,22 +32,16 @@
         "on-click": "blueberry"
     },
     // Modules configuration
-    // "sway/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "warp-on-scroll": false,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
+     "sway/workspaces": {
+         "disable-scroll": false,
+         "all-outputs": true,
+         "warp-on-scroll": false
+     },
+     "custom/recording": {
+         "exec": "pgrep wf-recorder > /dev/null && echo '' || echo ''",
+         "format": "{}",
+         "interval": 1
+     },
     "keyboard-state": {
         "capslock": true,
         "format": "{name} {icon}",

@@ -17,7 +17,7 @@ set $right l
 set $term GKT_THEME=Materia-dark contour tmux
 set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
 set $obs obs
-set $scrcpy guiscrcpy
+set $scrcpy scrcpy --stay-awake -S
 set $chbgrnd ~/.local/bin/chbgrnd
 set $virtoutinit ~/.local/bin/virtoutinit
 set $vncout ~/.local/bin/vncout
@@ -105,7 +105,7 @@ exec "clipcascade --xmode false >> ~/.log"
     # Start a terminal
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
-    bindsym $mod+Shift+w exec $HOME/.local/bin/chbgrnd
+    bindsym $mod+Shift+b exec $HOME/.local/bin/chbgrnd
     bindsym $mod+s exec $obs
     bindsym $mod+p exec $scrcpy
     bindsym $mod+v exec $virtoutinit
@@ -113,9 +113,9 @@ exec "clipcascade --xmode false >> ~/.log"
     bindsym $mod+i exec $vncout 2
     bindsym $mod+Shift+a exec $audio-controls
     bindsym $mod+Shift+n exec swaync-client -t -sw
-    bindsym $mod+Plus exec shotman --capture output
+    bindsym $mod+Plus exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m output
     bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m region
-    bindsym $mod+Comma exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
+    bindsym $mod+Shift+w exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
     bindsym $mod+c exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
     bindsym --to-code --no-repeat Ctrl+$up exec $key_up

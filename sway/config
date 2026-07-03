@@ -59,7 +59,10 @@ output HEADLESS-2 {
     transform 90
 }
 default_border pixel 4
-default_floating_border pixel 4
+gaps inner 4
+gaps outer 4
+smart_borders on
+default_floating_border pixel 8
 output * bg `find -H $wallpaper_dir -maxdepth 1 -type f -not -path \"*/.*\" | shuf -n 1` fill
 exec swaync
 exec "clipcascade --xmode false >> ~/.log"
@@ -105,19 +108,20 @@ exec "clipcascade --xmode false >> ~/.log"
     # Start a terminal
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
-    bindsym $mod+Shift+b exec $HOME/.local/bin/chbgrnd
+    bindsym $mod+Shift+b exec bm-sidebar --toggle
+    bindsym $mod+Shift+g exec $HOME/.local/bin/chbgrnd
     bindsym $mod+s exec $obs
     bindsym $mod+p exec $scrcpy
-    bindsym $mod+v exec $virtoutinit
+    bindsym $mod+Shift+v exec $virtoutinit
     bindsym $mod+o exec $vncout 1
     bindsym $mod+i exec $vncout 2
     bindsym $mod+Shift+a exec $audio-controls
     bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+Plus exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m output
     bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m region
-    bindsym $mod+Shift+w exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
+    bindsym $mod+Underscore exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
     bindsym $mod+Shift+t exec $keyboard-sound
-    bindsym $mod+c exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
+    bindsym $mod+Minus exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
     bindsym --to-code --no-repeat Ctrl+$up exec $key_up
     bindsym --to-code --release Ctrl+Up+$up exec $key_up
     bindsym --to-code --no-repeat ctrl+$down exec $key_down
@@ -211,7 +215,7 @@ exec "clipcascade --xmode false >> ~/.log"
 
     # Switch the current container between different layout styles
     bindsym $mod+shift+s layout stacking
-    bindsym $mod+shift+g layout tabbed
+    bindsym $mod+shift+d layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
@@ -372,5 +376,6 @@ mode "workspaces" {
     bindsym Shift+$left move container to workspace prev; mode "default"
     bindsym Shift+$right move container to workspace next; mode "default"
     bindsym Escape mode "default"
+}
 }
 include /etc/sway/config.d/*

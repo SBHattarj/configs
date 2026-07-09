@@ -171,13 +171,13 @@ mode "run" {
 
         p exec $scrcpy; mode "default"
 
-        Shift+a exec $audio-control; mode "default"
+        Shift+a exec $audio-controls; mode "default"
 
         r exec $menu; mode "default"; mode "default"
 
 
 
-        $mod+t exec $term; mode "default"; mode "default"
+        $mod+t exec $term; mode "default"
 
 
         $mod+b exec $browser; mode "default"

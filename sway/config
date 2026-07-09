@@ -1,21 +1,15 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
+# Variables
 set $mod Mod1
-# Home row direction keys, like vim
+
+# directions
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term GKT_THEME=Materia-dark contour tmux
-set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
+
+# special applications
+set $term contour tmux
+set $browser brave
 set $obs obs
 set $scrcpy scrcpy --stay-awake -S
 set $chbgrnd ~/.local/bin/chbgrnd
@@ -23,33 +17,35 @@ set $virtoutinit ~/.local/bin/virtoutinit
 set $vncout ~/.local/bin/vncout
 set $wallpaper_dir ~/wallpaper
 set $audio-controls pwvucontrol
-set $keyboard-sound "killall buckle; $HOME/.local/bin/buckle"
+set $keyboard-sound killall buckle; $HOME/.local/bin/buckle
+
+## runner
+set $menu rofi -show drun
+
+# sway nag
 set $nag exec swaynagmode
+
+# control input
 set $move_mouse_up ~/.local/bin/mouse up
 set $move_mouse_down ~/.local/bin/mouse down
 set $move_mouse_left ~/.local/bin/mouse left
 set $move_mouse_right ~/.local/bin/mouse right
-set $drag_start "~/.local/bin/mouse drag-start"
-set $drag_end "~/.local/bin/mouse drag-end"
-set $scroll_mouse_up "~/.local/bin/mouse scroll-up"
-set $scroll_mouse_down "~/.local/bin/mouse scroll-down"
-set $scroll_mouse_left "~/.local/bin/mouse scroll-left"
-set $scroll_mouse_right "~/.local/bin/mouse scroll-right"
-set $mouse_click "~/.local/bin/mouse click"
-set $mouse_right_click "~/.local/bin/mouse right-click"
-set $mouse_middle_click "~/.local/bin/mouse middle-click"
-set $key_up "~/.local/bin/mouse up-key"
-set $key_down "~/.local/bin/mouse down-key"
-set $key_right "~/.local/bin/mouse right-key"
-set $key_left "~/.local/bin/mouse left-key"
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
+set $drag_start ~/.local/bin/mouse drag-start
+set $drag_end ~/.local/bin/mouse drag-end
+set $scroll_mouse_up ~/.local/bin/mouse scroll-up
+set $scroll_mouse_down ~/.local/bin/mouse scroll-down
+set $scroll_mouse_left ~/.local/bin/mouse scroll-left
+set $scroll_mouse_right ~/.local/bin/mouse scroll-right
+set $mouse_click ~/.local/bin/mouse click
+set $mouse_right_click ~/.local/bin/mouse right-click
+set $mouse_middle_click ~/.local/bin/mouse middle-click
+set $key_up ~/.local/bin/mouse up-key
+set $key_down ~/.local/bin/mouse down-key
+set $key_right ~/.local/bin/mouse right-key
+set $key_left ~/.local/bin/mouse left-key
 
-set $menu rofi -show drun
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+
+# virtual outputs
 output HEADLESS-1 {
     mode 2048x1100
 }
@@ -58,221 +54,170 @@ output HEADLESS-2 {
     mode 1920x940
     transform 90
 }
+
+# bar configuration
+bar {
+    position top
+    swaybar_command waybar
+
+}
+
+# Basic Setup
 default_border pixel 4
 gaps inner 4
 gaps outer 4
 smart_borders on
 default_floating_border pixel 8
 output * bg `find -H $wallpaper_dir -maxdepth 1 -type f -not -path \"*/.*\" | shuf -n 1` fill
+floating_modifier $mod normal
+
+# startup
 exec swaync
 exec "clipcascade --xmode false >> ~/.log"
 
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+bindsym {
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+    #show bluetooth side bar
+    $mod+Shift+b exec bm-sidebar --toggle
 
-### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
-    bindsym $mod+t exec $term
-    bindsym $mod+b exec $browser
-    bindsym $mod+Shift+b exec bm-sidebar --toggle
-    bindsym $mod+Shift+g exec $HOME/.local/bin/chbgrnd
-    bindsym $mod+s exec $obs
-    bindsym $mod+p exec $scrcpy
-    bindsym $mod+Shift+v exec $virtoutinit
-    bindsym $mod+o exec $vncout 1
-    bindsym $mod+i exec $vncout 2
-    bindsym $mod+Shift+a exec $audio-controls
-    bindsym $mod+Shift+n exec swaync-client -t -sw
-    bindsym $mod+Plus exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m output
-    bindsym $mod+Equal exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m region
-    bindsym $mod+Underscore exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
-    bindsym $mod+Shift+t exec $keyboard-sound
-    bindsym $mod+Minus exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
-    bindsym --to-code --no-repeat Ctrl+$up exec $key_up
-    bindsym --to-code --release Ctrl+Up+$up exec $key_up
-    bindsym --to-code --no-repeat ctrl+$down exec $key_down
-    bindsym --to-code --release Ctrl+Down+$down exec $key_down
-    bindsym --to-code --no-repeat Ctrl+$left exec $key_left
-    bindsym --to-code --release Ctrl+Left+$left exec $key_left
-    bindsym --to-code --no-repeat Ctrl+$right exec $key_right
-    bindsym --to-code --release Ctrl+Right+$right exec $key_right
-    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-    #bindsym Ctrl+Up+$up exec $key_up
-    #bindsym ctrl+Down+$down exec $key_down
-    #bindsym Ctrl+Left+$left exec $key_left
-    #bindsym Ctrl+Right+$right exec $key_right
+    # notification side bar
+    $mod+Shift+n exec swaync-client -t -sw
 
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+    # changing background
+    $mod+Shift+g exec $HOME/.local/bin/chbgrnd
 
-    # Start your launcher
-    bindsym $mod+r exec $menu
+    # add virtual outputs
+    $mod+Shift+v exec $virtoutinit
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
+    # vnc for virtual outputs
+    $mod+Shift+o exec $vncout 1
+    $mod+Shift+i exec $vncout 2
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    # screenshots and recordings
+    $mod+Plus exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m output
+    $mod+Equal exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m region
+    $mod+Underscore exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
+    $mod+Shift+t exec $keyboard-sound
+    $mod+Minus exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e $nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+shift+u splith
-    bindsym $mod+shift+i splitv
+    # audio controls
+    XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+    XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
-    # Switch the current container between different layout styles
-    bindsym $mod+shift+s layout stacking
-    bindsym $mod+shift+d layout tabbed
-    bindsym $mod+e layout toggle split
+    # exit applications
+    $mod+Shift+q kill
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    # logout
+    $mod+Shift+e $nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+period focus parent
-#
-# Resizing containers:
-#
+    # reload config after changes
+    $mod+Shift+c reload
 
+    # application navigation
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
+
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+
+    $mod+shift+z splith
+    $mod+shift+x splitv
+
+    $mod+shift+s layout stacking
+    $mod+shift+d layout tabbed
+    $mod+e layout toggle split
+
+    $mod+f fullscreen
+
+    $mod+Shift+space floating toggle
+
+    $mod+space focus mode_toggle
+
+    $mod+period focus parent
+    $mod+Comma focus child
+
+    # mode switching
+    $mod+r mode "run"
+    $mod+Shift+r mode "resize"
+    $mod+shift+m mode "mouse"
+    $mod+w mode "workspaces"
+}
+
+#homerow arrow control
+
+bindsym --to-code --no-repeat Ctrl+$up exec $key_up
+bindsym --to-code --release Ctrl+Up+$up exec $key_up
+bindsym --to-code --no-repeat ctrl+$down exec $key_down
+bindsym --to-code --release Ctrl+Down+$down exec $key_down
+bindsym --to-code --no-repeat Ctrl+$left exec $key_left
+bindsym --to-code --release Ctrl+Left+$left exec $key_left
+bindsym --to-code --no-repeat Ctrl+$right exec $key_right
+bindsym --to-code --release Ctrl+Right+$right exec $key_right
+#modes
+mode "run" {
+    bindsym {
+        t exec $term; mode "default"
+        b exec $browser; mode "default"
+
+        s exec $obs; mode "default"
+
+        p exec $scrcpy; mode "default"
+
+        Shift+a exec $audio-control; mode "default"
+
+        r exec $menu; mode "default"; mode "default"
+
+
+
+        $mod+t exec $term; mode "default"; mode "default"
+
+
+        $mod+b exec $browser; mode "default"
+
+        $mod+s exec $obs; mode "default"
+
+        $mod+p exec $scrcpy; mode "default"
+
+        $mod+Shift+a exec $audio-controls; mode "default"
+
+        $mod+r exec $menu; mode "default"
+
+
+        Return mode "default"
+        Escape mode "default"
+    }
+}
 
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym {
+        $left resize shrink width 10px
+        $down resize grow height 10px
+        $up resize shrink height 10px
+        $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+        Left resize shrink width 10px
+        Down resize grow height 10px
+        Up resize shrink height 10px
+        Right resize grow width 10px
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+        # Return to default mode
+        Return mode "default"
+        Escape mode "default"
+    }
 }
-bindsym $mod+Shift+r mode "resize"
-bindsym $mod+shift+m mode "mouse"
-bindsym $mod+w mode "workspaces"
-bindsym $mod+a mode "arrow"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    swaybar_command waybar
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-
-}
 
 mode "nag" {
     bindsym {
@@ -284,100 +229,101 @@ mode "nag" {
         k $nag --select prev
     }
 }
+
 mode "mouse" {
-    bindsym $up exec $move_mouse_up
-    bindsym $down exec $move_mouse_down
-    bindsym $left exec $move_mouse_left
-    bindsym $right exec $move_mouse_right
-    bindsym a exec $mouse_click
-    bindsym f exec $mouse_right_click
-    bindsym s exec $mouse_middle_click
-    bindsym Ctrl+Shift+d mode "mouse-drag"; exec $drag_start
-    bindsym Ctrl+Shift+s mode "mouse-scroll"
-    bindsym Escape mode "default"
+    bindsym {
+        $up exec $move_mouse_up
+        $down exec $move_mouse_down
+        $left exec $move_mouse_left
+        $right exec $move_mouse_right
+        a exec $mouse_click
+        f exec $mouse_right_click
+        s exec $mouse_middle_click
+        Ctrl+Shift+d mode "mouse-drag"; exec $drag_start
+        Ctrl+Shift+s mode "mouse-scroll"
+        Escape mode "default"
+    }
 }
+
 mode "mouse-scroll" {
-    bindsym $up exec $scroll_mouse_up
-    bindsym $down exec $scroll_mouse_down
-    bindsym $left exec $scroll_mouse_left
-    bindsym $right exec $scroll_mouse_right
-    bindsym a exec $mouse_click
-    bindsym f exec $mouse_right_click
-    bindsym s exec $mouse_middle_click
-    bindsym Ctrl+Shift+s mode "mouse";
-    bindsym Escape mode "mouse";
+    bindsym {
+        $up exec $scroll_mouse_up
+        $down exec $scroll_mouse_down
+        $left exec $scroll_mouse_left
+        $right exec $scroll_mouse_right
+        a exec $mouse_click
+        f exec $mouse_right_click
+        s exec $mouse_middle_click
+        Ctrl+Shift+s mode "mouse";
+        Escape mode "mouse";
+    }
 }
+
 mode "mouse-drag" {
-    bindsym $up exec $move_mouse_up
-    bindsym $down exec $move_mouse_down
-    bindsym $left exec $move_mouse_left
-    bindsym $right exec $move_mouse_right
-    bindsym a exec $mouse_click
-    bindsym f exec $mouse_right_click
-    bindsym s exec $mouse_middle_click
-    bindsym Ctrl+Shift+d mode "mouse"; exec $drag_end
-    bindsym Escape mode "mouse"; exec $drag_end
+    bindsym {
+        $up exec $move_mouse_up
+        $down exec $move_mouse_down
+        $left exec $move_mouse_left
+        $right exec $move_mouse_right
+        a exec $mouse_click
+        f exec $mouse_right_click
+        s exec $mouse_middle_click
+        Ctrl+Shift+d mode "mouse"; exec $drag_end
+        Escape mode "mouse"; exec $drag_end
+    }
 }
-mode "arrow" {
-    bindsym --to-code --no-repeat $up exec $key_up
-    bindsym --to-code --release Up+$up exec $key_up
-    bindsym --to-code --no-repeat $down exec $key_down
-    bindsym --to-code --release Down+$down exec $key_down
-    bindsym --to-code --no-repeat $left exec $key_left
-    bindsym --to-code --release Left+$left exec $key_left
-    bindsym --to-code --no-repeat $right exec $key_right
-    bindsym --to-code --release Right+$right exec $key_right
-    bindsym Escape mode "default"
-}
+
 mode "workspaces" {
-    # terminal
-    bindsym t workspace number 1; mode "default"
-    # browser
-    bindsym b workspace number 2; mode "default"
-    # discord
-    bindsym d workspace number 3; mode "default"
-    #runner/others
-    bindsym r workspace number 4; mode "default"
-    #testing/development
-    bindsym e workspace number 5; mode "default"
+    bindsym {
+        # terminal
+        t workspace number 1; mode "default"
+        # browser
+        b workspace number 2; mode "default"
+        # discord
+        d workspace number 3; mode "default"
+        #runner/others
+        r workspace number 4; mode "default"
+        #testing/development
+        e workspace number 5; mode "default"
 
 
-    bindsym 1 workspace number 1; mode "default"
-    bindsym 2 workspace number 2; mode "default"
-    bindsym 3 workspace number 3; mode "default"
-    bindsym 4 workspace number 4; mode "default"
-    bindsym 5 workspace number 5; mode "default"
-    bindsym 6 workspace number 6; mode "default"
-    bindsym 7 workspace number 7; mode "default"
-    bindsym 8 workspace number 8; mode "default"
-    bindsym 9 workspace number 9; mode "default"
+        1 workspace number 1; mode "default"
+        2 workspace number 2; mode "default"
+        3 workspace number 3; mode "default"
+        4 workspace number 4; mode "default"
+        5 workspace number 5; mode "default"
+        6 workspace number 6; mode "default"
+        7 workspace number 7; mode "default"
+        8 workspace number 8; mode "default"
+        9 workspace number 9; mode "default"
 
 
-    bindsym $left workspace prev; mode "default"
-    bindsym $right workspace next; mode "default"
+        $left workspace prev; mode "default"
+        $right workspace next; mode "default"
 
 
-    bindsym Shift+t move container to workspace number 1; mode "default"
-    bindsym Shift+b move container to workspace number 2; mode "default"
-    bindsym Shift+d move container to workspace number 3; mode "default"
-    bindsym Shift+r move container to workspace number 4; mode "default"
-    bindsym Shift+e move container to workspace number 5; mode "default"
+        Shift+t move container to workspace number 1; mode "default"
+        Shift+b move container to workspace number 2; mode "default"
+        Shift+d move container to workspace number 3; mode "default"
+        Shift+r move container to workspace number 4; mode "default"
+        Shift+e move container to workspace number 5; mode "default"
 
 
-    bindsym Shift+1 move container to workspace number 1; mode "default"
-    bindsym Shift+2 move container to workspace number 2; mode "default"
-    bindsym Shift+3 move container to workspace number 3; mode "default"
-    bindsym Shift+4 move container to workspace number 4; mode "default"
-    bindsym Shift+5 move container to workspace number 5; mode "default"
-    bindsym Shift+6 move container to workspace number 6; mode "default"
-    bindsym Shift+7 move container to workspace number 7; mode "default"
-    bindsym Shift+8 move container to workspace number 8; mode "default"
-    bindsym Shift+9 move container to workspace number 9; mode "default"
+        Shift+1 move container to workspace number 1; mode "default"
+        Shift+2 move container to workspace number 2; mode "default"
+        Shift+3 move container to workspace number 3; mode "default"
+        Shift+4 move container to workspace number 4; mode "default"
+        Shift+5 move container to workspace number 5; mode "default"
+        Shift+6 move container to workspace number 6; mode "default"
+        Shift+7 move container to workspace number 7; mode "default"
+        Shift+8 move container to workspace number 8; mode "default"
+        Shift+9 move container to workspace number 9; mode "default"
 
 
-    bindsym Shift+$left move container to workspace prev; mode "default"
-    bindsym Shift+$right move container to workspace next; mode "default"
-    bindsym Escape mode "default"
+        Shift+$left move container to workspace prev; mode "default"
+        Shift+$right move container to workspace next; mode "default"
+        Escape mode "default"
+    }
 }
-}
+
 include /etc/sway/config.d/*

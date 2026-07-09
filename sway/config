@@ -130,6 +130,8 @@ exec "clipcascade --xmode false >> ~/.log"
     bindsym --to-code --release Ctrl+Left+$left exec $key_left
     bindsym --to-code --no-repeat Ctrl+$right exec $key_right
     bindsym --to-code --release Ctrl+Right+$right exec $key_right
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
     #bindsym Ctrl+Up+$up exec $key_up
     #bindsym ctrl+Down+$down exec $key_down
     #bindsym Ctrl+Left+$left exec $key_left

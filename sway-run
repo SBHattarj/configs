@@ -2,5 +2,6 @@
 
 source $HOME/.zshrc
 export XDG_CURRENT_DESKTOP=sway
+export OBS_VKCAPTURE=1
 
 sway --unsupported-gpu

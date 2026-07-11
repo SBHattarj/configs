@@ -1,4 +1,5 @@
 eval "$(termium shell-hook show pre)"
+export OBS_VKCAPTURE=1
 # .bashrc
 
 # Source global definitions

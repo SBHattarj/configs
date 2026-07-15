@@ -231,6 +231,11 @@ mode "focus-change" {
         b [app_id="brave-browser"] focus; mode "default"
         d [instance="discord"] focus; mode "default"
         g [con_mark="game"] focus; mode "default"
+        $mod+g [class="Godot"] focus; mode "default"
+        k [class="Krita"] focus; mode "default"
+        $mod+k [app_id="org.kde.kdenlive"] focus; mode "default"
+        $mod+a [class="reaper.exe"] focus; mode "default"
+        $mod+s [class="reaper.exe" title=".*Vital.*"] focus; mode "default"
     }
 }
 

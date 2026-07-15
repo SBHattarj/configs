@@ -135,7 +135,7 @@ bindsym {
     $mod+shift+d layout tabbed
     $mod+e layout toggle split
 
-    $mod+f fullscreen
+    $mod+Shift+f fullscreen
 
     $mod+Shift+space floating toggle
 
@@ -147,6 +147,9 @@ bindsym {
     # mode switching
     $mod+r mode "run"
     $mod+Shift+r mode "resize"
+    $mod+f mode "focus-change"
+    $mod+m mode "mark"
+    $mod+a mode "avatar-control"
     $mod+shift+m mode "mouse"
     $mod+w mode "workspaces"
 }
@@ -215,6 +218,47 @@ mode "resize" {
         # Return to default mode
         Return mode "default"
         Escape mode "default"
+    }
+}
+
+mode "focus-change" {
+    bindsym {
+        Escape mode "default"
+        Ctrl+c mode "default"
+        t [app_id="contour"] focus; mode "default"
+        a [title="Warudo [0123456789]+.*"] focus; mode "default"
+        o [title="OBS.*"] focus; mode "default"
+        b [app_id="brave-browser"] focus; mode "default"
+        d [instance="discord"] focus; mode "default"
+        g [con_mark="game"] focus; mode "default"
+    }
+}
+
+mode "mark" {
+    bindsym {
+        Escape mode "default"
+        Ctrl+c mode "default"
+        g mark --toggle game; mode "default"
+    }
+}
+
+mode "avatar-control" {
+    bindsym {
+        Escape mode "default"
+        Ctrl+c mode "default"
+    }
+    bindsym --no-repeat {
+       w exec 'forward-key "title=\\"Warudo Editor\\"" w'; mode "default"
+       1 exec 'forward-key "title=\\"Warudo Editor\\"" alt-1'; mode "default"
+       2 exec 'forward-key "title=\\"Warudo Editor\\"" alt-2'; mode "default"
+       3 exec 'forward-key "title=\\"Warudo Editor\\"" alt-3'; mode "default"
+       4 exec 'forward-key "title=\\"Warudo Editor\\"" alt-4'; mode "default"
+       5 exec 'forward-key "title=\\"Warudo Editor\\"" alt-5'; mode "default"
+       6 exec 'forward-key "title=\\"Warudo Editor\\"" alt-6'; mode "default"
+       7 exec 'forward-key "title=\\"Warudo Editor\\"" alt-7'; mode "default"
+       8 exec 'forward-key "title=\\"Warudo Editor\\"" alt-8'; mode "default"
+       9 exec 'forward-key "title=\\"Warudo Editor\\"" alt-9'; mode "default"
+       0 exec 'forward-key "title=\\"Warudo Editor\\"" alt-0'; mode "default"
     }
 }
 

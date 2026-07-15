@@ -28,7 +28,25 @@ def get_mouse_keyboard():
         uinput.REL_WHEEL,
         uinput.REL_HWHEEL
     ]) as mouse:
-        with uinput.Device([uinput.KEY_LEFTSHIFT, uinput.KEY_UP, uinput.KEY_DOWN, uinput.KEY_LEFT, uinput.KEY_RIGHT]) as keyboard:
+        with uinput.Device([
+            uinput.KEY_LEFTSHIFT,
+            uinput.KEY_UP,
+            uinput.KEY_DOWN,
+            uinput.KEY_LEFT,
+            uinput.KEY_RIGHT,
+            uinput.KEY_W,
+            uinput.KEY_LEFTALT,
+            uinput.KEY_1,
+            uinput.KEY_2,
+            uinput.KEY_3,
+            uinput.KEY_4,
+            uinput.KEY_5,
+            uinput.KEY_6,
+            uinput.KEY_7,
+            uinput.KEY_8,
+            uinput.KEY_9,
+            uinput.KEY_0
+        ]) as keyboard:
             yield mouse, keyboard
 
 async def mouse_usage(mouse_server: MouseServer):
@@ -89,6 +107,39 @@ async def mouse_usage_main(mouse_server: MouseServer, mouse: uinput.Device, keyb
             continue
         if command == "down-key":
             keyboard.emit_click(uinput.KEY_DOWN, syn=True)
+            continue
+        if command == "w":
+            keyboard.emit_click(uinput.KEY_W, syn=True)
+            continue
+        if command == "alt-0":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_0), syn=True)
+            continue
+        if command == "alt-1":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_1), syn=True)
+            continue
+        if command == "alt-2":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_2), syn=True)
+            continue
+        if command == "alt-3":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_3), syn=True)
+            continue
+        if command == "alt-4":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_4), syn=True)
+            continue
+        if command == "alt-5":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_5), syn=True)
+            continue
+        if command == "alt-6":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_6), syn=True)
+            continue
+        if command == "alt-7":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_7), syn=True)
+            continue
+        if command == "alt-8":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_8), syn=True)
+            continue
+        if command == "alt-9":
+            keyboard.emit_combo((uinput.KEY_LEFTALT, uinput.KEY_9), syn=True)
             continue
         if command == "drag-start" and not dragging:
             dragging=True

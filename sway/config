@@ -9,7 +9,7 @@ set $right l
 
 # special applications
 set $term contour tmux
-set $browser brave
+set $browser PROTON_DISABLE_NVAPI=1 PROTON_USE_WOW64=1 OBS_VKCAPTURE_NAME=brave obs-gamecapture brave
 set $obs obs
 set $scrcpy scrcpy --stay-awake -S
 set $chbgrnd ~/.local/bin/chbgrnd
@@ -349,6 +349,8 @@ mode "workspaces" {
 
         $left workspace prev; mode "default"
         $right workspace next; mode "default"
+        $mod+$left exec go_to_next_nth_workspace -1; mode "default"
+        $mod+$right exec go_to_next_nth_workspace 1; mode "default"
 
 
         Shift+t move container to workspace number 1; mode "default"
@@ -371,6 +373,8 @@ mode "workspaces" {
 
         Shift+$left move container to workspace prev; mode "default"
         Shift+$right move container to workspace next; mode "default"
+        $mod+Shift+$left exec move_container_to_next_nth_workspace -1; mode "default"
+        $mod+Shift+$right exec move_container_to_next_nth_workspace 1; mode "default"
         Escape mode "default"
     }
 }

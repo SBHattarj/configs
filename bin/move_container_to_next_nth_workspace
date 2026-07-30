@@ -1,0 +1,4 @@
+#!/bin/bash
+num=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .num')
+num=$(($num+$1))
+swaymsg move container to workspace number $num

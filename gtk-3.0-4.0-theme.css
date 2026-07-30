@@ -19,8 +19,10 @@
     border-left-color: @border-color;
     background-image: none;
     box-shadow: none;
+    caret-color: @border-color;
+    -GtkWidget-cursor-aspect-ratio: 0.2;
 }
-window, popover, tooltip, filechooser {
+window, popover, tooltip, filechooser, dialog, messagedialog {
     background-color: @main-bg-color;
     color: white;
 }

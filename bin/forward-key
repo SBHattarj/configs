@@ -10,6 +10,8 @@ type=$@
 swaymsg [$matcher] focus
     if [ "$?" = "0" ]
 then
+    sleep 0.1
     mouse $type 
+    sleep 0.57
     swaymsg "[pid=$PID] focus"
 fi

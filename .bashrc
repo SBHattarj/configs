@@ -68,3 +68,8 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(termium shell-hook show post)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/mav/.lmstudio/bin"
+# End of LM Studio CLI section
+

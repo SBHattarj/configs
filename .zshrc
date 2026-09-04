@@ -112,3 +112,8 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export ANDROID_HOME="$HOME/.android-root"
 export PATH="$HOME/.android-root/cmdline-tools/latest/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/mav/.lmstudio/bin"
+# End of LM Studio CLI section
+

@@ -11,6 +11,7 @@
 #
 # Default: auto
 platform_plugin: auto
+tab_bar_visibility: Never
 
 # VT Renderer configuration.
 # ADVANCED! Do not touch unless you know what you are doing.

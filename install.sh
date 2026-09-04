@@ -59,6 +59,7 @@ ln -rsi "$DIR/greetd/wallpaper" "$HOME/wallpaper"
 echo "updating crontab"
 crontab "$DIR/crontab"
 chmod u+x "$DIR/bin/"*
+ln -rsi "$DIR/applications/*" "$HOME/.local/share/applications/"
 
 echo "linking greetd config"
 sudo rm -rf "/etc/greetd"

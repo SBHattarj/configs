@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Punishing: Gray Raven
+Comment=Play this game on Steam
+Exec=steam -silent steam://rungameid/4125930
+Icon=steam_icon_4125930
+Terminal=false
+Type=Application
+Categories=Game;

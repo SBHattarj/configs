@@ -100,6 +100,9 @@ bindsym {
     $mod+Underscore exec SWAY_SCREENSHOT_DIR=$HOME/screenshots/ sway-screenshot -m window
     $mod+Shift+t exec $keyboard-sound
     $mod+Minus exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
+    $mod+c exec $HOME/.local/bin/toggle-wf-recorder-window &> recordings-failure >> recordings-output
+    # open inner sway session when wanting to show the entire desktop for some streams
+    $mod+s exec sway
 
 
     # audio controls
@@ -152,6 +155,7 @@ bindsym {
     $mod+a mode "avatar-control"
     $mod+shift+m mode "mouse"
     $mod+w mode "workspaces"
+    $mod+i mode "input"
 }
 
 #homerow arrow control
@@ -376,6 +380,11 @@ mode "workspaces" {
         $mod+Shift+$left exec move_container_to_next_nth_workspace -1; mode "default"
         $mod+Shift+$right exec move_container_to_next_nth_workspace 1; mode "default"
         Escape mode "default"
+    }
+}
+mode "input" {
+    bindsym {
+        $mod+c mode "default"
     }
 }
 

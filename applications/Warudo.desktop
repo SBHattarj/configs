@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Warudo
+Comment=Play this game on Steam
+Exec=steam steam://rungameid/2079120
+Icon=steam_icon_2079120
+Terminal=false
+Type=Application
+Categories=Game;

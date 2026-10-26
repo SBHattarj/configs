@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Project Kat - Paper Lily Prologue
+Comment=Play this game on Steam
+Exec=steam -silent steam://rungameid/1698960
+Icon=steam
+Terminal=false
+Type=Application
+Categories=Game;

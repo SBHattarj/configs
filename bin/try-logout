@@ -10,16 +10,16 @@ still_alive=$(swaymsg -t get_tree | jq -r '.. | select(.pid?).pid')
 
 
 while (( ${#still_alive[@]} >= 1 )); do
-    kill_option=$(echo "Kill all Processes\nWait longer\nStop for now" | rofi -dmenu -p "Some process is preventing logout")
+    kill_option=$(echo "Force kill all Processes\nWait longer\nStop for now" | rofi -dmenu -p "Some process is preventing logout")
     if [[ "$kill_option" == "Wait longer" ]]; then
         sleep 2
         continue
     fi
-    if [[ "$kill_option" != "Kill all Processes" ]]; then
+    if [[ "$kill_option" != "Force kill all Processes" ]]; then
         return
     fi
     echo "??"
-    kill -SIGKILL still_alive
+    kill -SIGKILL $still_alive
     break
 done
 swaymsg exit

@@ -102,8 +102,8 @@ configuration {
 /*	kb-mode-complete: "Control+l";*/
 /*	kb-row-left: "Control+Page_Up";*/
 /*	kb-row-right: "Control+Page_Down";*/
-	kb-row-up: "Up,Control+Alt+j,Control+Up";
-	kb-row-down: "Down,Control+Alt+k,Control+Down";
+	kb-row-up: "Up,Control+Alt+j,Control+Up,Control+k";
+	kb-row-down: "Down,Control+Alt+k,Control+Down,Control+j";
 /*	kb-row-tab: "";*/
 /*	kb-element-next: "Tab";*/
 /*	kb-element-prev: "ISO_Left_Tab";*/

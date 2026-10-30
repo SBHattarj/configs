@@ -1,0 +1,25 @@
+#!/bin/env zsh
+logout_option=$(echo "Logout\nStay" | rofi -dmenu -p "Logout of sway?")
+if [[ "$logout_option" != "Logout" ]]; then
+    return
+fi
+
+swaymsg "[all]" kill
+sleep 2
+still_alive=$(swaymsg -t get_tree | jq -r '.. | select(.pid?).pid')
+
+
+while (( ${#still_alive[@]} >= 1 )); do
+    kill_option=$(echo "Kill all Processes\nWait longer\nStop for now" | rofi -dmenu -p "Some process is preventing logout")
+    if [[ "$kill_option" == "Wait longer" ]]; then
+        sleep 2
+        continue
+    fi
+    if [[ "$kill_option" != "Kill all Processes" ]]; then
+        return
+    fi
+    echo "??"
+    kill -SIGKILL still_alive
+    break
+done
+swaymsg exit

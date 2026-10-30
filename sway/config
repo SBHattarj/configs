@@ -18,12 +18,10 @@ set $vncout ~/.local/bin/vncout
 set $wallpaper_dir ~/wallpaper
 set $audio-controls pwvucontrol
 set $keyboard-sound "killall buckle; ~/.local/bin/buckle"
+set $exit ~/.local/bin/try-logout
 
 ## runner
 set $menu rofi -show drun
-
-# sway nag
-set $nag exec swaynagmode
 
 # control input
 set $move_mouse_up ~/.local/bin/mouse up
@@ -102,7 +100,7 @@ bindsym {
     $mod+Minus exec $HOME/.local/bin/toggle-wf-recorder &> recordings-failure >> recordings-output
     $mod+c exec $HOME/.local/bin/toggle-wf-recorder-window &> recordings-failure >> recordings-output
     # open inner sway session when wanting to show the entire desktop for some streams
-    $mod+s exec sway
+    $mod+s exec sway --unsupported-gpu
 
 
     # audio controls
@@ -111,10 +109,12 @@ bindsym {
 
     # exit applications
     $mod+Shift+q kill
+    $mod+Shift+period exec "kill -KILL $(swaymsg -t get_tree | jq '.. | select(.focused? == true) | .pid')"
 
     # logout
-    $mod+Shift+e $nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    $mod+Shift+e exec $exit
 
+    $mod+Shift+slash [all] kill
 
 
     # reload config after changes
@@ -268,18 +268,6 @@ mode "avatar-control" {
        8 exec 'forward-key "title=\\"Warudo Editor\\"" alt-8'; mode "default"
        9 exec 'forward-key "title=\\"Warudo Editor\\"" alt-9'; mode "default"
        0 exec 'forward-key "title=\\"Warudo Editor\\"" alt-0'; mode "default"
-    }
-}
-
-
-mode "nag" {
-    bindsym {
-        Ctrl+d mode "default"
-        Ctrl+c $nag --exit
-        Escape $nag --exit
-        Return $nag --confirm
-        j $nag --select next
-        k $nag --select prev
     }
 }
 

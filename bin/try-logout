@@ -1,24 +1,32 @@
 #!/bin/env zsh
-logout_option=$(echo "Logout\nStay" | rofi -dmenu -p "Logout of sway?")
-if [[ "$logout_option" != "Logout" ]]; then
+FORCE_KILL_OPTION="Force kill all Processes"
+WAIT_OPTION="Wait longer"
+STOP_OPTION="Stop for now"
+LOGOUT_OPTION="Logout"
+STAY_OPTION="Stay"
+WAIT_DURATION=1
+
+
+logout_option=$(echo "$LOGOUT_OPTION\n$STAY_OPTION" | rofi -dmenu -p "Logout of sway?")
+if [[ "$logout_option" != "$LOGOUT_OPTION" ]]; then
     return
 fi
 
 swaymsg "[all]" kill
-sleep 2
+sleep $WAIT_DURATION
 still_alive=$(swaymsg -t get_tree | jq -r '.. | select(.pid?).pid')
 
 
 while (( ${#still_alive[@]} >= 1 )); do
-    kill_option=$(echo "Force kill all Processes\nWait longer\nStop for now" | rofi -dmenu -p "Some process is preventing logout")
-    if [[ "$kill_option" == "Wait longer" ]]; then
-        sleep 2
+    kill_option=$(echo "$FORCE_KILL_OPTION\n$WAIT_OPTION\n$STOP_OPTION" | rofi -dmenu -p "Some process is preventing logout")
+    if [[ "$kill_option" == "$WAIT_OPTION" ]]; then
+        sleep $WAIT_DURATION
+        still_alive=$(swaymsg -t get_tree | jq -r '.. | select(.pid?).pid')
         continue
     fi
-    if [[ "$kill_option" != "Force kill all Processes" ]]; then
+    if [[ "$kill_option" != "$FORCE_KILL_OPTION" ]]; then
         return
     fi
-    echo "??"
     kill -SIGKILL $still_alive
     break
 done

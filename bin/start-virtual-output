@@ -1,4 +1,46 @@
-#!/bin/zsh
-LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so ffmpeg -f v4l2 -i /dev/video$1 \
-    -vf "format=rgba,hqdn3d=4:4:3:3,eq=brightness=0.16:gamma=1.9:contrast=1.7,format=yuv420p"\
-    -f v4l2 /dev/video$2
+#!/usr/bin/env zsh
+RETRY_OPTION="Retry"
+NEVERMIND_OPTION="Nevermind"
+
+
+available_videos=(${=$(ls /dev/video*)})
+video_options=""
+input_video="$available_videos"
+num_vids=${#available_videos[@]}
+if (( ${#available_videos[@]} <= 1 )); then
+    return
+fi
+for video in $available_videos; do
+    video_options="$video_options$video\n"
+done
+input_video=$(echo -n "$video_options" | rofi -dmenu -p "Choose a video to virtualize")
+available_videos=(${available_videos:#$input_video})
+echo $available_videos $input_video
+if [[ -z $input_video ]]; then
+    return
+fi
+video_options=""
+output_video=$available_videos[0]
+if (( ${#available_videos[@]} > 1 )); then
+    for video in $available_videos; do
+        video_options="$video_options$video\n"
+    done
+    output_video=$(echo -n "$video_options" | rofi -dmenu -p "Choose a video for output")
+fi
+if [[ -z $output_video ]]; then
+    return
+fi
+while true; do
+    LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so ffmpeg -f v4l2 -i $input_video \
+        -vf "format=rgba,hqdn3d=4:4:3:3,eq=brightness=0.16:gamma=1.9:contrast=1.7,format=yuv420p"\
+        -f v4l2  /dev/video5
+    if [[ $? -eq 0 ]]; then
+        return
+    fi
+    option=$(echo "$RETRY_OPTION\n$NEVERMIND_OPTION" | rofi -dmenu -p "Couldn't start virtual camera!")
+    echo $option
+    if [[ "$option" != "$RETRY_OPTION" ]]; then
+        break
+    fi
+    echo $option
+done

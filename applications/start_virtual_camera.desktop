@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Start a Virtual Camera
+Comment=Start a Virtual camera
+Categories=Audio;Video;AudioVideo;AudioVideoEditing;Recorder;
+Exec=zsh -c "$HOME/.local/bin/start-virtual-output"
+Icon=~/.local/share/applications/camera.png
+MimeType=appli
